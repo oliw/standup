@@ -1,0 +1,8 @@
+<form>
+  <input value={{email}} oninput={{action (mut email) value="target.value"}} placeholder="Email Address"/>
+  <input type="password" value={{password}} oninput={{action (mut password) value="target.value"}} placeholder="Password"/>
+  <button {{action 'register'}}>Register</button>
+</form>
+
+{{yield}}
+

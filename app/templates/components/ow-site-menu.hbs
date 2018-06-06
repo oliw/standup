@@ -1,0 +1,9 @@
+<nav>
+  <ul>
+    {{#if session.isAuthenticated}}
+    <p>Hi, Oliver <button {{action 'logout'}}>logout</button></p>
+    {{else}}
+    <p>{{#link-to 'login'}}Login{{/link-to}}</p>
+    {{/if}}
+  </ul>
+</nav>

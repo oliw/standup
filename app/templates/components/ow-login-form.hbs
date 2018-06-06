@@ -1,0 +1,7 @@
+<h1>Login Page</h1>
+<form>
+  <input value={{email}} oninput={{action (mut email) value="target.value"}} placeholder="Email Address"/>
+  <input type="password" value={{password}} oninput={{action (mut password) value="target.value"}} placeholder="Password"/>
+  <button {{action 'login'}}>Log In</button>
+</form>
+{{#link-to 'register'}}Register{{/link-to}}
