@@ -29,6 +29,12 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.firebase = {
+      apiKey: 'AIzaSyCSzusoKp0ynbA6MxIQt9KYqf5V2HERls8',
+      authDomain: 'standup-development.firebaseapp.com',
+      databaseURL: 'https://standup-development.firebaseio.co',
+      storageBucket: 'standup-development.appspot.com'
+    };
   }
 
   if (environment === 'test') {
