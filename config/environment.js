@@ -33,7 +33,7 @@ module.exports = function(environment) {
     ENV.firebase = {
       apiKey: 'AIzaSyCSzusoKp0ynbA6MxIQt9KYqf5V2HERls8',
       authDomain: 'standup-development.firebaseapp.com',
-      databaseURL: 'https://standup-development.firebaseio.co',
+      databaseURL: 'https://standup-development.firebaseio.com',
       storageBucket: 'standup-development.appspot.com'
     };
   }

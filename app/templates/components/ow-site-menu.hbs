@@ -1,9 +1,14 @@
 <nav>
   <ul>
-    {{#if session.isAuthenticated}}
-    <p>Hi, Oliver <button {{action 'logout'}}>logout</button></p>
-    {{else}}
-    <p>{{#link-to 'login'}}Login{{/link-to}}</p>
-    {{/if}}
+    <li>
+      {{#link-to 'application'}}Standup{{/link-to}}
+    </li>
+    <li>
+      {{#if session.isAuthenticated}}
+        <p>Hi, Oliver <button {{action 'logout'}}>logout</button></p>
+      {{else}}
+        <p>{{#link-to 'login'}}Login{{/link-to}}</p>
+      {{/if}}
+    </li>
   </ul>
 </nav>

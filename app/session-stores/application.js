@@ -9,7 +9,7 @@ export default AdaptiveStore.extend({
       provider: a.provider,
       refreshToken: a.refreshToken,
       uid: a.uid
-    }
+    };
     return this._super({ authenticated: subset });
   }
 });
