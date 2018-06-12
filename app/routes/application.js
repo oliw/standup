@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 
 export default Route.extend(ApplicationRouteMixin, {
   session: service(),
+  routeAfterAuthentication: 'authenticated.start',
   beforeModel() {
     if (this.get('session.isAuthenticated')) {
       this.transitionTo('authenticated.start');

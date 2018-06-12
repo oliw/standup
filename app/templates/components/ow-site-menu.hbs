@@ -1,7 +1,11 @@
 <nav>
   <ul>
     <li>
-      {{#link-to 'application'}}Standup{{/link-to}}
+      {{#if session.isAuthenticated}}
+        {{#link-to 'authenticated.start'}}Standup{{/link-to}}
+      {{else}}
+        {{#link-to 'application'}}Standup{{/link-to}}
+      {{/if}}
     </li>
     <li>
       {{#if session.isAuthenticated}}
