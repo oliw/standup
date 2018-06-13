@@ -6,6 +6,10 @@ export default Route.extend({
   store: service(),
   session: service(),
   model() {
-    return;
+    return RSVP.hash(
+      {
+        standups: this.store.findAll('standup')
+      }
+    );
   }
 });

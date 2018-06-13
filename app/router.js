@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('register');
   this.route('authenticated', { path: '/a', resetNamespace: true }, function() {
     this.route('start');
+    this.route('debug');
   });
 });
 

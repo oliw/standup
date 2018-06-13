@@ -20,7 +20,7 @@ export default Component.extend({
         let data = session.data;
         let uid = data.authenticated.uid;
         store.findRecord('user', uid).then((user) => {
-          data.authenticated.user = user;
+          session.set('data.authenticated.user', user);
         });
       });
     }
