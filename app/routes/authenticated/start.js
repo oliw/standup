@@ -11,5 +11,18 @@ export default Route.extend({
         standups: this.store.findAll('standup')
       }
     );
+  },
+  actions: {
+    createStandup() {
+      let standup = this.store.createRecord('standup');
+      standup.save().then((success) => {
+        this.refresh();
+      });
+    },
+    deleteStandup(standup) {
+      standup.destroyRecord().then((success) => {
+        this.refresh();
+      });
+    }
   }
 });

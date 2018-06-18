@@ -1,1 +1,4 @@
-{{ow-start-page standups=model.standups}}
+{{ow-start-page standups=model.standups 
+  onNewStandupRequested=(route-action 'createStandup')
+  onDeleteStandupRequested=(route-action 'deleteStandup')
+}}
