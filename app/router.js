@@ -12,6 +12,10 @@ Router.map(function() {
   this.route('authenticated', { path: '/a', resetNamespace: true }, function() {
     this.route('start');
     this.route('debug');
+    this.route('standup', {
+      path: '/standup/:id',
+      resetNamespace: true
+    });
   });
 });
 
