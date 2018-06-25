@@ -14,7 +14,9 @@ export default Route.extend({
   },
   actions: {
     createStandup() {
-      let standup = this.store.createRecord('standup');
+      let standup = this.get('store').createRecord('standup', {
+        title: 'Test'
+      });
       standup.save().then((success) => {
         this.refresh();
       });

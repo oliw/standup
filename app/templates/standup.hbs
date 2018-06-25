@@ -1,2 +1,7 @@
-<h1>Showing a standup</h1>
+<h1>Showing a standup with id {{model.id}}</h1>
+<button {{action "createTopic" model}}>Add a topic</button>
+<h2>Topics</h2>
+{{#each model.topics as |topic|}}
+<h3>{{topic.subject}}</h3>
+{{/each}}
 {{outlet}}
