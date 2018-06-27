@@ -3,5 +3,12 @@
 <h2>Topics</h2>
 {{#each model.topics as |topic|}}
 <h3>{{topic.subject}}</h3>
+<h4>Yesterday</h4>
+{{#each topic.yesterdays as |entry|}}
+{{input type="text" value=entry.body}}<button {{action "saveEntry" entry}}>Save</button><button {{action "deleteEntry" topic entry}}>Delete</button>
+{{/each}}
+<button {{action "createYesterdayEntry" topic}}>New Entry</button>
+<h4>Today</h4>
+<h4>Blockers</h4>
 {{/each}}
 {{outlet}}

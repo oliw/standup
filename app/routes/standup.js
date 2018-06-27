@@ -16,6 +16,23 @@ export default Route.extend({
       newTopic.save().then(function() {
         return standup.save();
       });
-    }
+    },
+    createYesterdayEntry(topic) {
+      let newEntry = this.store.createRecord('entry', {
+        body: `new entry at ${Math.floor((Math.random() * 10000) + 1)}`
+      });
+      topic.get('yesterdays').addObject(newEntry);
+      newEntry.save().then(function() {
+        return topic.save();
+      });
+    },
+    saveEntry(entry) {
+      entry.save();
+    },
+    deleteEntry(topic, entry) {
+      entry.destroyRecord().then(function() {
+        topic.save();
+      });
+    },
   }
 });
