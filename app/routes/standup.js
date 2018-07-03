@@ -26,6 +26,9 @@ export default Route.extend({
         return topic.save();
       });
     },
+    saveTopic(topic) {
+      topic.save();
+    },
     saveEntry(entry) {
       entry.save();
     },
