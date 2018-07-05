@@ -6,8 +6,8 @@ export default Route.extend(ApplicationRouteMixin, {
   session: service(),
   routeAfterAuthentication: 'authenticated.start',
   beforeModel() {
-    if (this.get('session.isAuthenticated')) {
-      this.transitionTo('authenticated.start');
-    }
+    //if (this.get('session.isAuthenticated')) {
+    //  this.transitionTo('authenticated.start');
+    //}
   }
 });
