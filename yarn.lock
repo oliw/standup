@@ -2770,6 +2770,12 @@ ember-inflector@^2.0.0:
   dependencies:
     ember-cli-babel "^6.0.0"
 
+ember-keyboard@^3.0.2:
+  version "3.0.2"
+  resolved "https://npm.vip.global.square/ember-keyboard/-/ember-keyboard-3.0.2.tgz#839ab5c32a6b3d3ce0b735728c1e1bc362107464"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+
 ember-load-initializers@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ember-load-initializers/-/ember-load-initializers-1.1.0.tgz#4edacc0f3a14d9f53d241ac3e5561804c8377978"
@@ -2869,6 +2875,12 @@ ember-source@~3.1.0:
     inflection "^1.12.0"
     jquery "^3.3.1"
     resolve "^1.5.0"
+
+ember-truth-helpers@^2.0.0:
+  version "2.0.0"
+  resolved "https://npm.vip.global.square/ember-truth-helpers/-/ember-truth-helpers-2.0.0.tgz#f3e2eef667859197f1328bb4f83b0b35b661c1ac"
+  dependencies:
+    ember-cli-babel "^6.8.2"
 
 emberfire@^2.0.10:
   version "2.0.10"

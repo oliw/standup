@@ -1,10 +1,20 @@
 import Ember from 'ember';
 import FreestyleController from 'ember-freestyle/controllers/freestyle';
+import EmberObject from '@ember/object';
 
 const { inject } = Ember;
 
+const Item = EmberObject.extend({
+});
+
 export default FreestyleController.extend({
   emberFreestyle: inject.service(),
+
+  owListItems: [
+    Item.create({name: 'A'}),
+    Item.create({name: 'B'}),
+    Item.create({name: 'C'})
+  ],
 
   /* BEGIN-FREESTYLE-USAGE fp--notes
 ### A few notes regarding freestyle-palette

@@ -4,8 +4,25 @@
   }}
 
   {{#freestyle-section name='Components' as |section|}}
+    {{#section.subsection name='ow-list'}}
+      {{#freestyle-usage 'ow-list-example-1'}}
+        <ul>
+          {{#ow-list items=owListItems as |item isSelected|}}
+          <li>Item {{item.name}} - {{isSelected}}</li>
+          {{/ow-list}}
+        </ul>
+      {{/freestyle-usage}}
+      {{#freestyle-usage 'ow-list-example-2'}}
+        {{#ow-list items=owListItems as |item isSelected|}}
+          {{ow-entry selected=isSelected}}
+        {{/ow-list}}
+      {{/freestyle-usage}}
+    {{/section.subsection}}
     {{#section.subsection name='ow-entry'}}
       {{#freestyle-usage 'ow-entry-example-1'}}
+        {{ow-entry}}
+      {{/freestyle-usage}}
+      {{#freestyle-usage 'ow-entry-example-2'}}
         {{ow-entry}}
       {{/freestyle-usage}}
     {{/section.subsection}}
