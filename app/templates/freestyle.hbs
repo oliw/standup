@@ -20,10 +20,13 @@
     {{/section.subsection}}
     {{#section.subsection name='ow-entry'}}
       {{#freestyle-usage 'ow-entry-example-1'}}
-        {{ow-entry}}
+        {{ow-entry value='This is my entry' onChange=(action 'handleValueChange')}}
       {{/freestyle-usage}}
       {{#freestyle-usage 'ow-entry-example-2'}}
-        {{ow-entry}}
+        {{ow-entry value='I am not selectable' canSelect=false}}
+      {{/freestyle-usage}}
+      {{#freestyle-usage 'ow-entry-example-3'}}
+        {{ow-entry value='I am not editable' canEdit=false}}
       {{/freestyle-usage}}
     {{/section.subsection}}
   {{/freestyle-section}}

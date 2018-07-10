@@ -1,3 +1,8 @@
-{{input placeholder="Entry" escape-press="loseFocus" key-up="keyUp"}}
-<p>Focused {{isFocused}}</p>
-<p>Selected {{selected}}</p>
+<input 
+  placeholder="Entry" 
+  escape-press="escape" 
+  value={{value}}
+  onInput={{action 'handleChange'}}
+  disabled={{isNotEditing}} />
+<p>Selected {{isSelected}}</p>
+<p>Editing {{isEditing}}</p>

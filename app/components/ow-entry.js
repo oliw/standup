@@ -1,26 +1,51 @@
 import Component from '@ember/component';
 import { EKMixin, EKOnFocusMixin, keyUp } from 'ember-keyboard';
+import { on } from '@ember/object/evented';
+import { not } from '@ember/object/computed';
 
 export default Component.extend(EKMixin, EKOnFocusMixin, {
+  value: '',
+  canSelect: true,
+  canEdit: true,
+  onChange: null,
+
   isFocused: false,
-  focusIn() {
-    this.set('isFocused', true);
-  },
-  focusOut() {
-    this.set('isFocused', false);
-  },
+  isSelected: false,
+  isEditing: false,
+  isNotEditing: not('isEditing'),
+
   click() {
-    this.$('input').focus();
+    if (this.get('canSelect') !== true) {
+      return;
+    }
+    let notSelected = this.get('isSelected') !== true;
+    if (notSelected) {
+      this.set('isSelected', true);
+    }
+    if (this.get('canEdit')) {
+      this.set('isEditing', true);
+      this.$('input').focus();
+    }
   },
-  onEscape: (function() {
-    this.sendAction('loseFocus');
-  }).on(keyUp('Escape')),
+  escape: on(keyUp('Escape'), function() {
+    let selected = this.get('isSelected');
+    let editing = this.get('isEditing');
+    if (editing) {
+      this.set('isEditing', false);
+    } else if (selected) {
+      this.set('isSelected', false);
+    }
+  }),
   actions: {
-    loseFocus() {
-      this.$('input').blur();
+    escape() {
+      this.escape();
     },
-    keyUp(value, event) {
-      return true;
+    handleChange(event) {
+      event.preventDefault();
+      let newValue = event.target.value;
+      if (this.get('onChange')) {
+        this.get('onChange')(newValue);
+      }
     }
   }
 });

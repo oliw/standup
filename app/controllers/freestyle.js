@@ -67,5 +67,11 @@ export default Ember.Component.extend({
       'name': 'white',
       'base': '#ffffff'
     }
+  },
+
+  actions: {
+    handleValueChange(newValue) {
+      alert(`This new value is ${newValue}`);
+    }
   }
 });
