@@ -11,9 +11,25 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
     return this.items.get(this.selectedIndex);
   }).property('items.[]', 'selectedIndex'),
   goUp: (function() {
-    this.decrementProperty('selectedIndex');
-  }).on(keyUp('ArrowUp')),
+    if (this.get('selectedIndex') > 0) {
+      this.decrementProperty('selectedIndex');
+    }
+  }),
   goDown: (function() {
-    this.incrementProperty('selectedIndex');
-  }).on(keyUp('ArrowDown')),
+    if (this.get('selectedIndex') < this.get('items.length') - 1) {
+      this.incrementProperty('selectedIndex');
+    }
+  }),
+  actions: {
+    selectPrevious() {
+      this.goUp();
+    },
+    selectNext() {
+      this.goDown();
+    },
+    selectItem(item) {
+      let index = this.get('items').indexOf(item);
+      this.set('selectedIndex', index);
+    }
+  }
 });

@@ -8,6 +8,9 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
   canSelect: true,
   canEdit: true,
   onChange: null,
+  onUp: null,
+  onDown: null,
+  onClick: null,
 
   isFocused: false,
   isSelected: false,
@@ -26,6 +29,7 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
       this.set('isEditing', true);
       this.$('input').focus();
     }
+    this.get('onClick')();
   },
   escape: on(keyUp('Escape'), function() {
     let selected = this.get('isSelected');
@@ -34,6 +38,18 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
       this.set('isEditing', false);
     } else if (selected) {
       this.set('isSelected', false);
+    }
+  }),
+  handleUp: on(keyUp('ArrowUp'), function() {
+    let handler = this.get('onUp');
+    if (handler) {
+      handler();
+    }
+  }),
+  handleDown: on(keyUp('ArrowDown'), function() {
+    let handler = this.get('onDown');
+    if (handler) {
+      handler();
     }
   }),
   actions: {

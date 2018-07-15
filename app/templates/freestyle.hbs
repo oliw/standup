@@ -13,8 +13,8 @@
         </ul>
       {{/freestyle-usage}}
       {{#freestyle-usage 'ow-list-example-2'}}
-        {{#ow-list items=owListItems as |item isSelected|}}
-          {{ow-entry selected=isSelected}}
+        {{#ow-list items=owListItems as |item isSelected selectPrevious selectNext selectItem|}}
+          {{ow-entry selected=isSelected onUp=selectPrevious onDown=selectNext onClick=selectItem}}
         {{/ow-list}}
       {{/freestyle-usage}}
     {{/section.subsection}}

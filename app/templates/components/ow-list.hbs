@@ -1,4 +1,4 @@
 {{#each items as |item|}}
-  {{yield item (eq item selectedItem)}}
+  {{yield item (eq item selectedItem) (action "selectPrevious") (action "selectNext") (action "selectItem" item)}}
 {{/each}}
-
+<p>The current selected index is: {{selectedIndex}}</p>
