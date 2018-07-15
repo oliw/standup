@@ -72,6 +72,16 @@ export default Ember.Component.extend({
   actions: {
     handleValueChange(newValue) {
       alert(`This new value is ${newValue}`);
-    }
+    },
+    insertItem(index) {
+      this.get('owListItems').insertAt(index, Item.create({name: 'New Object'}));
+    },
+    removeItem(item) {
+      this.get('owListItems').removeObject(item);
+    },
+    insertAfter(item) {
+      let index = this.get('owListItems').indexOf(item) + 1;
+      this.get('owListItems').insertAt(index, Item.create({name: 'New Object'}));
+    },
   }
 });

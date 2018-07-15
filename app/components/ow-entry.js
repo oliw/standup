@@ -1,61 +1,63 @@
 import Component from '@ember/component';
 import { EKMixin, EKOnFocusMixin, keyUp } from 'ember-keyboard';
 import { on } from '@ember/object/evented';
-import { not } from '@ember/object/computed';
+import { not, and } from '@ember/object/computed';
+import { observer, computed } from '@ember/object';
 
 export default Component.extend(EKMixin, EKOnFocusMixin, {
   value: '',
-  canSelect: true,
-  canEdit: true,
   onChange: null,
-  onUp: null,
-  onDown: null,
-  onClick: null,
+  selected: false,
+  editing: false,
+  onSelectRequest: null,
+  onRemoveRequest: null,
 
-  isFocused: false,
-  isSelected: false,
-  isEditing: false,
+  isEditing: and('selected', 'editing'),
   isNotEditing: not('isEditing'),
 
+  onEdit: on('init', observer('isEditing', function() {
+    let isEditing = this.get('isEditing');
+    if (isEditing) {
+      Ember.run.schedule('afterRender', () => {
+        this.$('input').focus();
+      });
+    } else if (this.get('selected')) {
+      Ember.run.schedule('afterRender', () => {
+        this.$('p.label').focus();
+      });
+    }
+  })),
+  tabIndex: computed('selected', function() {
+    if (this.get('selected')) {
+      return "-1";
+    } else {
+      return null;
+    }
+  }),
+  handleDelete: on(keyUp('Backspace'), function() {
+    let value = this.get('value');
+    let editing = this.get('editing');
+    let selected = this.get('selected');
+    if (value === '' || (selected && !editing)) {
+      let handler = this.get('onRemoveRequest');
+      if (handler) {
+        handler();
+      }
+    }
+  }),
+  handleEnter: on(keyUp('Enter'), function() {
+    let handler = this.get('onEnter');
+    if (handler && this.get('editing')) {
+      handler();
+    }
+  }),
   click() {
-    if (this.get('canSelect') !== true) {
-      return;
+    let handler = this.get('onSelectRequest');
+    if (handler) {
+      handler();
     }
-    let notSelected = this.get('isSelected') !== true;
-    if (notSelected) {
-      this.set('isSelected', true);
-    }
-    if (this.get('canEdit')) {
-      this.set('isEditing', true);
-      this.$('input').focus();
-    }
-    this.get('onClick')();
   },
-  escape: on(keyUp('Escape'), function() {
-    let selected = this.get('isSelected');
-    let editing = this.get('isEditing');
-    if (editing) {
-      this.set('isEditing', false);
-    } else if (selected) {
-      this.set('isSelected', false);
-    }
-  }),
-  handleUp: on(keyUp('ArrowUp'), function() {
-    let handler = this.get('onUp');
-    if (handler) {
-      handler();
-    }
-  }),
-  handleDown: on(keyUp('ArrowDown'), function() {
-    let handler = this.get('onDown');
-    if (handler) {
-      handler();
-    }
-  }),
   actions: {
-    escape() {
-      this.escape();
-    },
     handleChange(event) {
       event.preventDefault();
       let newValue = event.target.value;

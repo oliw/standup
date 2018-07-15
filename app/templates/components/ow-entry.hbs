@@ -1,8 +1,10 @@
+{{#if isEditing}}
 <input 
   placeholder="Entry" 
   escape-press="escape" 
   value={{value}}
   onInput={{action 'handleChange'}}
   disabled={{isNotEditing}} />
-<p>Selected {{isSelected}}</p>
-<p>Editing {{isEditing}}</p>
+{{else}}
+<p class="label" tabindex={{tabIndex}}>{{value}}</p>
+{{/if}}

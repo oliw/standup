@@ -7,26 +7,28 @@
     {{#section.subsection name='ow-list'}}
       {{#freestyle-usage 'ow-list-example-1'}}
         <ul>
-          {{#ow-list items=owListItems as |item isSelected|}}
-          <li>Item {{item.name}} - {{isSelected}}</li>
+          {{#ow-list items=owListItems as |item isSelected selectItem|}}
+          <li {{action selectItem}}>Item {{item.name}} - {{isSelected}}</li>
           {{/ow-list}}
         </ul>
       {{/freestyle-usage}}
       {{#freestyle-usage 'ow-list-example-2'}}
-        {{#ow-list items=owListItems as |item isSelected selectPrevious selectNext selectItem|}}
-          {{ow-entry selected=isSelected onUp=selectPrevious onDown=selectNext onClick=selectItem}}
-        {{/ow-list}}
+        {{#ow-editor as |editing|}}
+          {{#ow-list items=owListItems as |item isSelected selectItem|}}
+            {{ow-entry value=item.name selected=isSelected editing=editing onSelectRequest=selectItem onRemoveRequest=(action "removeItem" item) onEnter=(action "insertAfter" item) onChange=(action (mut item.name))}}
+          {{/ow-list}}
+        {{/ow-editor}}
       {{/freestyle-usage}}
     {{/section.subsection}}
     {{#section.subsection name='ow-entry'}}
       {{#freestyle-usage 'ow-entry-example-1'}}
-        {{ow-entry value='This is my entry' onChange=(action 'handleValueChange')}}
+        {{ow-entry selected=true editing=true value='This is my entry' onChange=(action 'handleValueChange')}}
       {{/freestyle-usage}}
       {{#freestyle-usage 'ow-entry-example-2'}}
-        {{ow-entry value='I am not selectable' canSelect=false}}
+        {{ow-entry selected=false value='I am not selectable'}}
       {{/freestyle-usage}}
       {{#freestyle-usage 'ow-entry-example-3'}}
-        {{ow-entry value='I am not editable' canEdit=false}}
+        {{ow-entry selected=true editing=false value='I am not editable'}}
       {{/freestyle-usage}}
     {{/section.subsection}}
   {{/freestyle-section}}
