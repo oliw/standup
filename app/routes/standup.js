@@ -17,11 +17,16 @@ export default Route.extend({
         return standup.save();
       });
     },
-    createYesterdayEntry(topic) {
+    createEntry(topic, entries, afterEntry) {
       let newEntry = this.store.createRecord('entry', {
         body: `new entry at ${Math.floor((Math.random() * 10000) + 1)}`
       });
-      topic.get('yesterdays').addObject(newEntry);
+      if (afterEntry === null) {
+        entries.addObject(newEntry);
+      } else {
+        let index = entries.indexOf(afterEntry);
+        entries.insertAt(index+1, newEntry);
+      }
       newEntry.save().then(function() {
         return topic.save();
       });

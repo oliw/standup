@@ -1,5 +1,6 @@
 <h1>Showing a standup with id {{model.id}}</h1>
 <button {{action "createTopic" model}}>Add a topic</button>
+<button {{action "save" model}}>Save</button>
 <h2>Topics</h2>
 {{#each model.topics as |topic|}}
 <h3>{{topic.subject}}</h3>
@@ -7,16 +8,41 @@
 <h4>Yesterday</h4>
 {{#ow-editor as |editing|}}
   {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
-    {{ow-entry value=item.body selected=isSelected onSelectRequest=selectItem editing=editing}}
+    {{ow-entry value=item.body 
+      selected=isSelected
+      onEnter=(route-action "createEntry" topic topic.yesterdays item)
+      onSelectRequest=selectItem 
+      onRemoveRequest=(route-action "deleteEntry" topic item)
+      onChange=(action (mut item.body))
+      editing=editing}}
   {{/ow-list}}
 {{/ow-editor}}
-{{#each topic.yesterdays as |entry|}}
-{{ow-entry}}
-{{input type="text" value=entry.body}}<button {{action "saveEntry" entry}}>Save</button><button {{action "deleteEntry" topic entry}}>Delete</button>
-{{/each}}
-
-<button {{action "createYesterdayEntry" topic}}>New Entry</button>
+<button {{action "createEntry" topic topic.yesterdays}}>New Entry</button>
 <h4>Today</h4>
+{{#ow-editor as |editing|}}
+  {{#ow-list items=topic.todays as |item isSelected selectItem|}}
+    {{ow-entry value=item.body 
+      selected=isSelected
+      onEnter=(route-action "createEntry" topic topic.todays item)
+      onSelectRequest=selectItem 
+      onRemoveRequest=(route-action "deleteEntry" topic item)
+      onChange=(action (mut item.body))
+      editing=editing}}
+  {{/ow-list}}
+{{/ow-editor}}
+<button {{action "createEntry" topic topic.todays}}>New Entry</button>
 <h4>Blockers</h4>
+{{#ow-editor as |editing|}}
+  {{#ow-list items=topic.blockers as |item isSelected selectItem|}}
+    {{ow-entry value=item.body 
+      selected=isSelected
+      onEnter=(route-action "createEntry" topic topic.blockers item)
+      onSelectRequest=selectItem 
+      onRemoveRequest=(route-action "deleteEntry" topic item)
+      onChange=(action (mut item.body))
+      editing=editing}}
+  {{/ow-list}}
+{{/ow-editor}}
+<button {{action "createEntry" topic topic.blockers}}>New Entry</button>
 {{/each}}
 {{outlet}}

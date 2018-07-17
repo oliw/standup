@@ -1,4 +1,3 @@
 {{#each items as |item|}}
   {{yield item (eq item selectedItem) (action "selectItem" item)}}
 {{/each}}
-<p>The current selected index is: {{selectedIndex}}</p>
