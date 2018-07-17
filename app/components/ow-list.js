@@ -12,7 +12,7 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
     if (this.selectedIndex === -1) {
       return null;
     }
-    return this.items.get(this.selectedIndex);
+    return this.items.objectAt(this.selectedIndex);
   }).property('selectedIndex'),
   onListChange: observer('items.length', function() {
     let selected = this.get('selectedItem');

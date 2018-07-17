@@ -5,6 +5,11 @@
 <h3>{{topic.subject}}</h3>
 {{input type="text" value=topic.subject}}<button {{action "saveTopic" topic}}>Rename</button>
 <h4>Yesterday</h4>
+{{#ow-editor as |editing|}}
+  {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
+    {{ow-entry value=item.body selected=isSelected onSelectRequest=selectItem editing=editing}}
+  {{/ow-list}}
+{{/ow-editor}}
 {{#each topic.yesterdays as |entry|}}
 {{ow-entry}}
 {{input type="text" value=entry.body}}<button {{action "saveEntry" entry}}>Save</button><button {{action "deleteEntry" topic entry}}>Delete</button>
