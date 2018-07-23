@@ -1,15 +1,34 @@
 import Controller from '@ember/controller';
+import { task } from 'ember-concurrency';
 
 export default Controller.extend({
+  isSaving: false,
+  saveTask: task(function * () {
+    let model = this.get('model');
+    let saveables = [];
+    model.get('topics').forEach(topic => {
+      topic.get('yesterdays').forEach(entry => {
+        saveables.push(entry);
+      });
+      topic.get('todays').forEach(entry => {
+        saveables.push(entry);
+      });
+      topic.get('blockers').forEach(entry => {
+        saveables.push(entry);
+      });
+      saveables.push(topic);
+    });
+    yield saveables.map(saveable => saveable.save());
+  }).drop(),
   actions: {
+    save() {
+      this.get('saveTask').perform();
+    },
     createTopic(standup) {
       let newTopic = this.store.createRecord('topic', {
         subject: 'untitled'
       });
       standup.get('topics').addObject(newTopic);
-      newTopic.save().then(function() {
-        return standup.save();
-      });
     },
     createEntry(topic, entries, afterEntry) {
       let newEntry = this.store.createRecord('entry', {
@@ -21,15 +40,6 @@ export default Controller.extend({
         let index = entries.indexOf(afterEntry);
         entries.insertAt(index+1, newEntry);
       }
-      newEntry.save().then(function() {
-        return topic.save();
-      });
-    },
-    saveTopic(topic) {
-      topic.save();
-    },
-    saveEntry(entry) {
-      entry.save();
     },
     deleteEntry(topic, entry) {
       entry.destroyRecord().then(function() {
