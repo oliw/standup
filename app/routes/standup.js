@@ -7,5 +7,16 @@ export default Route.extend({
   model(params) {
     return this.store.findRecord('standup', params.id);
   },
-  actions: {}
+  actions: {
+    willTransition(transition) {
+      if (this.controller.get('savePending') &&
+        !confirm('You have unsaved changes, are you sure you want to leave?')) {
+        transition.abort();
+      } else {
+        // Bubble the `willTransition` action so that
+        // parent routes can decide whether or not to abort.
+        return true;
+      }
+    }
+  }
 });
