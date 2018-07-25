@@ -4,6 +4,9 @@
 {{#if saveTask.isRunning}}
   <p>Im saving</p>
 {{/if}}
+{{#if model.hasDirtyAttributesAndRelationships}}
+  <p> Im ready to save</p>
+{{/if}}
 <h2>Topics</h2>
 {{#each model.topics as |topic|}}
 <h3>{{topic.subject}}</h3>

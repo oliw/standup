@@ -1,8 +1,12 @@
 import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
-  isSaving: false,
+  isSaving: computed(function () {
+    let model = this.get('model');
+    model.get('hasDirtyAttributesAndRelationships');
+  }),
   saveTask: task(function * () {
     let model = this.get('model');
     let saveables = [];
