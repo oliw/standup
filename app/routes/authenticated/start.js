@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
+import { LocalDate, ZoneId } from 'js-joda';
 
 export default Route.extend({
   store: service(),
@@ -15,7 +16,8 @@ export default Route.extend({
   actions: {
     createStandup() {
       let standup = this.get('store').createRecord('standup', {
-        title: 'Test'
+        title: 'Test',
+        date: LocalDate.now(ZoneId.SYSTEM)
       });
       standup.save().then((success) => {
         this.refresh();

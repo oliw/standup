@@ -4,6 +4,9 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
+  date: computed('model.date', function() {
+    return this.get('model.date').toString();
+  }),
   savePending: alias('model.hasDirtyAttributesAndRelationships'),
   saveTask: task(function * () {
     let model = this.get('model');
