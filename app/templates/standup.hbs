@@ -10,7 +10,7 @@
 <h2>Topics</h2>
 {{#each model.topics as |topic|}}
 <h3>{{topic.subject}}</h3>
-{{input type="text" value=topic.subject}}
+{{input type="text" placeholder="Topic, Theme or Person" value=topic.subject}}
 <h4>Yesterday</h4>
 {{#ow-editor as |editing|}}
   {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}

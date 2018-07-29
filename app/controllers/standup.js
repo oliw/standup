@@ -28,7 +28,7 @@ export default Controller.extend({
     },
     createTopic(standup) {
       let newTopic = this.store.createRecord('topic', {
-        subject: 'untitled'
+        subject: ''
       });
       standup.get('topics').addObject(newTopic);
     },
