@@ -3,8 +3,16 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
+  let env = EmberApp.env();
+
+  let fingerprintOptions = {
+    prepend: (env === 'production') ? 'https://assets.epicstandups.com/': '',
+    extensions: ['js', 'css', 'png', 'jpg', 'gif', 'map', 'ico']
+  };
+
   let app = new EmberApp(defaults, {
     // Add options here
+    fingerprint: fingerprintOptions
   });
 
   // Use `app.import` to add additional libraries to the generated

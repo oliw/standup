@@ -51,9 +51,14 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.locationType = 'hash';
-    ENV.rootURL = '/standup/';
-    // here you can enable a production-specific feature
+    ENV.firebase = {
+      apiKey: "AIzaSyBIJyGRJJMx1IBK8TS8ZbNipgKQRXfT__E",
+      authDomain: "standup-production-32c4b.firebaseapp.com",
+      databaseURL: "https://standup-production-32c4b.firebaseio.com",
+      projectId: "standup-production-32c4b",
+      storageBucket: "standup-production-32c4b.appspot.com",
+      messagingSenderId: "127732344377"
+    };
   }
 
   return ENV;
