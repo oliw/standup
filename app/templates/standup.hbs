@@ -1,4 +1,4 @@
-<h1>{{moment-format date "dddd, MMMM Do YYYY"}}</h1>
+<h1>{{joda-format model.date "dddd, MMMM Do YYYY"}}</h1>
 <button {{action "createTopic" model}}>Add a topic</button>
 <button {{action "save"}}>Save</button>
 {{#if saveTask.isRunning}}

@@ -3,6 +3,6 @@
 <h2>Recent Standups</h2>
 <ul>
 {{#each standups as |standup|}}
-<li>{{#link-to 'standup' standup.id}}Standup {{standup.id}}{{/link-to}} <button {{action onDeleteStandupRequested standup}}>Delete</button></li>
+<li>{{#link-to 'standup' standup.id}}Standup for {{joda-format standup.date "dddd, MMMM Do YYYY"}}{{/link-to}} <button {{action onDeleteStandupRequested standup}}>Delete</button></li>
 {{/each}}
 </ul>
