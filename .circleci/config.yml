@@ -2,12 +2,19 @@ version: 2
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: circleci/node:10-browsers
     steps:
-      - checkout
+      - checkout # special step to check out source code to working directory
+      - restore_cache: # special step to restore the dependency cache
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
-          name: Greeting
-          command: echo Hello, world.
+          name: Install Dependencies
+          command: yarn install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
       - run:
-          name: Print the Current Time
-          command: date
+          name: Deploy to Amazon S3
+          command: yarn deploy
+
