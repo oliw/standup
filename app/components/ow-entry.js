@@ -35,14 +35,22 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
     }
   }),
   handleDelete: on(keyUp('Backspace'), function() {
-    let value = this.get('value');
-    let editing = this.get('editing');
+    let isEditing = this.get('isEditing');
     let selected = this.get('selected');
-    if (value === '' || (selected && !editing)) {
-      let handler = this.get('onRemoveRequest');
-      if (handler) {
+    let handler = this.get('onRemoveRequest');
+    if (!handler) {
+      return;
+    }
+    if (isEditing && this.get('value') === '') {
+      let isPrimed = this.get('isPrimed');
+      if (this.get('isPrimedForDeletion')) {
         handler();
+        this.set('isPrimedForDeletion', false);
+      } else {
+        this.set('isPrimedForDeletion', true);
       }
+    } else if (selected && !isEditing) {
+      handler();
     }
   }),
   handleEnter: on(keyUp('Enter'), function() {

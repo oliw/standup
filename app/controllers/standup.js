@@ -34,7 +34,7 @@ export default Controller.extend({
     },
     createEntry(topic, entries, afterEntry) {
       let newEntry = this.store.createRecord('entry', {
-        body: `new entry at ${Math.floor((Math.random() * 10000) + 1)}`
+        body: `Entry`
       });
       if (afterEntry === null) {
         entries.addObject(newEntry);
