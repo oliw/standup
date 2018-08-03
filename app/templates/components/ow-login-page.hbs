@@ -2,6 +2,12 @@
 <form>
   <input value={{email}} oninput={{action (mut email) value="target.value"}} placeholder="Email Address"/>
   <input type="password" value={{password}} oninput={{action (mut password) value="target.value"}} placeholder="Password"/>
-  <button {{action 'login'}}>Log In</button>
+  <button disabled={{loggingIn}} {{action 'login'}}>
+    {{#if loggingIn}}
+      Logging In...
+    {{else}}
+      Log In
+    {{/if}}
+  </button>
 </form>
 {{#link-to 'register'}}Register{{/link-to}}

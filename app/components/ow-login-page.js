@@ -6,8 +6,11 @@ export default Component.extend({
   password: '',
   session: service(),
   store: service(),
+  loggingIn: false,
+  onLogin: null,
   actions: {
     login() {
+      this.set('loggingIn', true);
       const session = this.get('session');
       const email = this.get('email');
       const password = this.get('password');
@@ -21,7 +24,10 @@ export default Component.extend({
         let uid = data.authenticated.uid;
         store.findRecord('user', uid).then((user) => {
           session.set('data.authenticated.user', user);
+          this.get('onLogin')();
         });
+      }).finally(() => {
+        this.set('loggingIn', false);
       });
     }
   }
