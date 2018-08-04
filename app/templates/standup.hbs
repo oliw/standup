@@ -13,7 +13,7 @@
   {{else}}
     Save
   {{/if}}
-  </button>
+</button>
 {{/if}}
 {{#if model.hasSomeTopics}}
   <h2>Topics</h2>
@@ -33,7 +33,7 @@
               editable=isEditing}}
           {{/ow-list}}
         {{/ow-editor}}
-        <button {{action "createEntry" topic topic.yesterdays}}>New Entry</button>
+        {{ow-entry-new onClick=(action "createEntry" topic topic.yesterdays null)}}
         <h4>Today</h4>
         {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
           {{#ow-list items=topic.todays as |item isSelected selectItem|}}
@@ -46,7 +46,7 @@
               editable=isEditing}}
           {{/ow-list}}
         {{/ow-editor}}
-        <button {{action "createEntry" topic topic.todays}}>New Entry</button>
+        {{ow-entry-new onClick=(action "createEntry" topic topic.todays null)}}
         <h4>Blockers</h4>
         {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
           {{#ow-list items=topic.blockers as |item isSelected selectItem|}}
@@ -59,9 +59,12 @@
               editable=isEditing}}
           {{/ow-list}}
         {{/ow-editor}}
-        <button {{action "createEntry" topic topic.blockers}}>New Entry</button>
+        {{ow-entry-new onClick=(action "createEntry" topic topic.blockers null)}}
       {{/if}}
     </div>
   {{/each}}
+  <button {{action "createTopic" model}}>
+    Add another topic
+  </button>
 {{/if}}
 {{outlet}}

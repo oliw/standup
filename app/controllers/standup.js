@@ -34,9 +34,10 @@ export default Controller.extend({
       });
       standup.get('topics').addObject(newTopic);
     },
-    createEntry(topic, entries, afterEntry) {
+    createEntry(topic, entries, afterEntry, value) {
+      let body = value === undefined ? '' : value;
       let newEntry = this.store.createRecord('entry', {
-        body: ``
+        body: body
       });
       if (afterEntry === null || afterEntry === undefined) {
         entries.addObject(newEntry);
