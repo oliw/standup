@@ -8,14 +8,21 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
   value: '',
   onChange: null,
   selected: false,
-  editing: false,
+  editable: false,
   onSelectRequest: null,
   onRemoveRequest: null,
 
-  isEditing: and('selected', 'editing'),
+  isEditing: and('selected', 'editable'),
   isNotEditing: not('isEditing'),
-
-  onEdit: on('init', observer('isEditing', function() {
+  onInsert: on('didInsertElement', function() {
+    let isEditing = this.get('isEditing');
+    if (isEditing) {
+      Ember.run.schedule('afterRender', () => {
+        this.$('input').focus();
+      });
+    }
+  }),
+  onEdit: observer('isEditing', function() {
     let isEditing = this.get('isEditing');
     if (isEditing) {
       Ember.run.schedule('afterRender', () => {
@@ -26,7 +33,7 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
         this.$('p.label').focus();
       });
     }
-  })),
+  }),
   tabIndex: computed('selected', function() {
     if (this.get('selected')) {
       return "-1";
@@ -55,7 +62,7 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
   }),
   handleEnter: on(keyUp('Enter'), function() {
     let handler = this.get('onEnter');
-    if (handler && this.get('editing')) {
+    if (handler && this.get('editable')) {
       handler();
     }
   }),

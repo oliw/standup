@@ -22,7 +22,7 @@
       {{input type="text" placeholder="Topic, Theme or Person" value=topic.subject}}
       {{#if topic.hasSubject}}
         <h4>Yesterday</h4>
-        {{#ow-editor as |editing|}}
+        {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
           {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
             {{ow-entry value=item.body 
               selected=isSelected
@@ -30,12 +30,12 @@
               onSelectRequest=selectItem 
               onRemoveRequest=(action "deleteEntry" topic item)
               onChange=(action (mut item.body))
-              editing=editing}}
+              editable=isEditing}}
           {{/ow-list}}
         {{/ow-editor}}
         <button {{action "createEntry" topic topic.yesterdays}}>New Entry</button>
         <h4>Today</h4>
-        {{#ow-editor as |editing|}}
+        {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
           {{#ow-list items=topic.todays as |item isSelected selectItem|}}
             {{ow-entry value=item.body 
               selected=isSelected
@@ -43,12 +43,12 @@
               onSelectRequest=selectItem 
               onRemoveRequest=(action "deleteEntry" topic item)
               onChange=(action (mut item.body))
-              editing=editing}}
+              editable=isEditing}}
           {{/ow-list}}
         {{/ow-editor}}
         <button {{action "createEntry" topic topic.todays}}>New Entry</button>
         <h4>Blockers</h4>
-        {{#ow-editor as |editing|}}
+        {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
           {{#ow-list items=topic.blockers as |item isSelected selectItem|}}
             {{ow-entry value=item.body 
               selected=isSelected
@@ -56,7 +56,7 @@
               onSelectRequest=selectItem 
               onRemoveRequest=(action "deleteEntry" topic item)
               onChange=(action (mut item.body))
-              editing=editing}}
+              editable=isEditing}}
           {{/ow-list}}
         {{/ow-editor}}
         <button {{action "createEntry" topic topic.blockers}}>New Entry</button>

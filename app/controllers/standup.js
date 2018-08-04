@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
+  isEditing: false,
   savePending: alias('model.hasDirtyAttributesAndRelationships'),
   saveTask: task(function * () {
     let model = this.get('model');
@@ -24,6 +25,7 @@ export default Controller.extend({
   }).drop(),
   actions: {
     save() {
+      this.set('isEditing', false);
       this.get('saveTask').perform();
     },
     createTopic(standup) {
@@ -34,19 +36,26 @@ export default Controller.extend({
     },
     createEntry(topic, entries, afterEntry) {
       let newEntry = this.store.createRecord('entry', {
-        body: `Entry`
+        body: ``
       });
-      if (afterEntry === null) {
+      if (afterEntry === null || afterEntry === undefined) {
         entries.addObject(newEntry);
       } else {
         let index = entries.indexOf(afterEntry);
         entries.insertAt(index+1, newEntry);
       }
+      this.set('isEditing', true);
     },
     deleteEntry(topic, entry) {
       entry.destroyRecord().then(function() {
         topic.save();
       });
     },
+    enableEditing() {
+      this.set('isEditing', true);
+    },
+    disableEditing() {
+      this.set('isEditing', false);
+    }
   }
 });
