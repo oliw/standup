@@ -7,17 +7,19 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('index', {path: '/'});
+  this.route('about');
+  this.route('pricing');
   this.route('login');
-  this.route('freestyle');
   this.route('register');
   this.route('authenticated', { path: '/a', resetNamespace: true }, function() {
-    this.route('start');
-    this.route('debug');
+    this.route('dashboard');
     this.route('standup', {
       path: '/standup/:id',
       resetNamespace: true
     });
   });
+  this.route('freestyle');
 });
 
 export default Router;

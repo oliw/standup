@@ -1,18 +1,31 @@
 <nav>
   <ul>
     <li>
-      {{#if session.isAuthenticated}}
-        {{#link-to 'authenticated.start'}}Standup{{/link-to}}
-      {{else}}
-        {{#link-to 'application'}}Standup{{/link-to}}
-      {{/if}}
+      {{#link-to 'index'}}Standup{{/link-to}}
     </li>
+    {{#if loggedIn}}
+      <li>
+        {{#link-to 'authenticated.dashboard'}}Dashboard{{/link-to}}
+      </li>
+    {{/if}}
     <li>
-      {{#if session.isAuthenticated}}
-        <p>Hi, Oliver <button {{action 'logout'}}>logout</button></p>
-      {{else}}
-        <p>{{#link-to 'login'}}Login{{/link-to}}</p>
-      {{/if}}
+      {{#link-to 'about'}}About{{/link-to}}
     </li>
+    {{#if guest}}
+      <li>
+        {{#link-to 'pricing'}}Pricing{{/link-to}}
+      </li>
+      <li>
+        {{#link-to 'login'}}Login{{/link-to}}
+      </li>
+      <li>
+        {{#link-to 'register'}}Register{{/link-to}}
+      </li>
+    {{/if}}
+    {{#if loggedIn}}
+      <li>
+        <a {{action 'logout'}}>Logout</a>
+      </li>
+    {{/if}}
   </ul>
 </nav>

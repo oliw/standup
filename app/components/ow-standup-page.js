@@ -1,10 +1,15 @@
-import Controller from '@ember/controller';
+import Component from '@ember/component';
 import { task } from 'ember-concurrency';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { not } from '@ember/object/computed';
 
-export default Controller.extend({
+export default Component.extend({
+  store: service(),
+  session: service(),
   isEditing: false,
+  saveDisabled: not('session.isAuthenticated'),
   savePending: alias('model.hasDirtyAttributesAndRelationships'),
   saveTask: task(function * () {
     let model = this.get('model');
