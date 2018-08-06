@@ -7,6 +7,7 @@ export default DS.Model.extend(DirtiableMixin, {
   date: DS.attr('local-date'),
   creatorId: DS.attr('string'),
   createdAt: DS.attr('date'),
+  owner: DS.attr('string'),
   topics: DS.hasMany('topic'),
   hasNoTopics: equal('topics.length', 0),
   hasSomeTopics: gt('topics.length', 0)

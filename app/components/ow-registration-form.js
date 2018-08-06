@@ -15,7 +15,8 @@ export default Component.extend({
       authService.createUserWithEmailAndPassword(email, password).then((response) => {
         let user = this.get('store').createRecord('user', {
           id: response.uid,
-          email: response.email
+          email: response.email,
+          owner: response.uid
         });
         user.save();
       });

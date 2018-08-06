@@ -7,6 +7,7 @@ export default DS.Model.extend(DirtiableMixin, {
   yesterdays: DS.hasMany('entry'),
   todays: DS.hasMany('entry'),
   blockers: DS.hasMany('entry'),
+  owner: DS.attr('string'),
 
   hasSubject: notEmpty('subject')
 });

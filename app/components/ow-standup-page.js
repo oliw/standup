@@ -26,6 +26,7 @@ export default Component.extend({
       });
       saveables.push(topic);
     });
+    saveables.push(model);
     yield saveables.map(saveable => saveable.save());
   }).drop(),
   actions: {
@@ -35,14 +36,16 @@ export default Component.extend({
     },
     createTopic(standup) {
       let newTopic = this.store.createRecord('topic', {
-        subject: ''
+        subject: '',
+        owner: this.get('session.data.authenticated.uid')
       });
       standup.get('topics').addObject(newTopic);
     },
     createEntry(topic, entries, afterEntry, value) {
       let body = value === undefined ? '' : value;
       let newEntry = this.store.createRecord('entry', {
-        body: body
+        body: body,
+        owner: this.get('session.data.authenticated.uid')
       });
       if (afterEntry === null || afterEntry === undefined) {
         entries.addObject(newEntry);

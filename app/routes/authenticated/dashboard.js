@@ -9,7 +9,10 @@ export default Route.extend({
   model() {
     return RSVP.hash(
       {
-        standups: this.store.findAll('standup')
+        standups: this.store.query('standup', {
+          orderBy: 'owner',
+          equalTo: this.get('session.data.authenticated.uid')
+        })
       }
     );
   },
@@ -17,7 +20,8 @@ export default Route.extend({
     createStandup() {
       let standup = this.get('store').createRecord('standup', {
         title: 'Test',
-        date: LocalDate.now(ZoneId.SYSTEM)
+        date: LocalDate.now(ZoneId.SYSTEM),
+        owner: this.get('session.data.authenticated.uid')
       });
       standup.save().then((success) => {
         this.refresh();

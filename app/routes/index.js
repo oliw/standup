@@ -4,6 +4,7 @@ import { LocalDate, ZoneId } from 'js-joda';
 
 export default Route.extend({
   store: service(),
+  session: service(),
 
   dayOfWeek: (function() {
     const d = new Date();
@@ -24,7 +25,8 @@ export default Route.extend({
     let dayOfWeek = this.get('dayOfWeek');
     let standup = this.get('store').createRecord('standup', {
       title: dayOfWeek,
-      date: date
+      date: date,
+      owner: this.get('session.data.authenticated.uid')
     });
     return standup;
   }
