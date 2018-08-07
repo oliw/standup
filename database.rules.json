@@ -1,0 +1,32 @@
+{
+  "rules": {
+    ".read": "false",
+    ".write": "false",
+    "standups": {
+      ".indexOn": "owner",
+      ".read": "auth.uid != null && query.orderByChild == 'owner' && query.equalTo == auth.uid",
+      "$standup": {
+        ".read": "auth.uid != null && data.child('owner').val() == auth.uid",
+        ".write": "auth.uid != null && newData.child('owner').val() == auth.uid"
+      }
+    },
+    "topics": {
+      "$id": {
+        ".read": "auth.uid != null && data.child('owner').val() == auth.uid",
+        ".write": "auth.uid != null && newData.child('owner').val() == auth.uid"
+      }
+    },
+    "entries": {
+      "$id": {
+        ".read": "auth.uid != null && data.child('owner').val() == auth.uid",
+        ".write": "auth.uid != null && newData.child('owner').val() == auth.uid"
+      }
+    },
+    "users": {
+      "$id": {
+        ".read": "auth.uid != null && data.child('owner').val() == auth.uid",
+        ".write": "auth.uid != null && newData.child('owner').val() == auth.uid"
+      }
+    }
+  }
+}

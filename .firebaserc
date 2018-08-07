@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "standup-development",
+    "prod": "standup-production-32c4b"
+  }
+}
