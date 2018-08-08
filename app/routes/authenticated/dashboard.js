@@ -18,14 +18,7 @@ export default Route.extend({
   },
   actions: {
     createStandup() {
-      let standup = this.get('store').createRecord('standup', {
-        title: 'Test',
-        date: LocalDate.now(ZoneId.SYSTEM),
-        owner: this.get('session.data.authenticated.uid')
-      });
-      standup.save().then((success) => {
-        this.refresh();
-      });
+      this.transitionTo('index');
     },
     deleteStandup(standup) {
       standup.destroyRecord().then((success) => {

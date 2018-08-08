@@ -20,14 +20,31 @@ export default Route.extend({
     return weekday[d.getDay()];
   }).property(),
 
-  model(params) {
+  async model(params) {
     let date = LocalDate.now(ZoneId.SYSTEM);
     let dayOfWeek = this.get('dayOfWeek');
-    let standup = this.get('store').createRecord('standup', {
-      title: dayOfWeek,
-      date: date,
-      owner: this.get('session.data.authenticated.uid')
-    });
+    let standup = null;
+    if (this.get('session.data.authenticated.uid')) {
+      let standups = await this.store.query('standup', {
+       orderBy: 'owner',
+       equalTo: this.get('session.data.authenticated.uid')
+      });
+      standup = standups.find(s => {
+        return s.get('date').equals(date);
+      });
+      if (standup === undefined) {
+        standup = await this.get('store').createRecord('standup', {
+          title: dayOfWeek,
+          date: date,
+          owner: this.get('session.data.authenticated.uid')
+        });
+      }
+    } else {
+        standup = await this.get('store').createRecord('standup', {
+          title: dayOfWeek,
+          date: date
+        });
+    }
     return standup;
   }
 });
