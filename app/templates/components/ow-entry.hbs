@@ -2,9 +2,9 @@
 <input 
   placeholder="Entry" 
   escape-press="escape" 
-  value={{value}}
+  value={{formattedValue}}
   onInput={{action 'handleChange'}}
   disabled={{isNotEditing}} />
 {{else}}
-<p class="label" tabindex={{tabIndex}}>{{value}}</p>
+<p class="label" tabindex={{tabIndex}}>{{formattedValue}}</p>
 {{/if}}

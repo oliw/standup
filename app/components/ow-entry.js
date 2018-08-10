@@ -11,6 +11,14 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
   editable: false,
   onSelectRequest: null,
   onRemoveRequest: null,
+  formattedValue: (function() {
+    let value = this.get('value');
+    if (value == '' && !this.get('isEditing')) {
+      return 'Blank entry';
+    } else {
+      return value;
+    }
+  }).property('value', 'isEditing'),
 
   isEditing: and('selected', 'editable'),
   isNotEditing: not('isEditing'),
