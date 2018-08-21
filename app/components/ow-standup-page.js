@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { not } from '@ember/object/computed';
+import { schedule } from '@ember/runloop';
 
 export default Component.extend({
   store: service(),
@@ -29,10 +30,25 @@ export default Component.extend({
     saveables.push(model);
     yield saveables.map(saveable => saveable.save());
   }).drop(),
+  showSummary: false,
+  showForm: not('showSummary'),
+  showCopyStatus: false,
   actions: {
     save() {
       this.set('isEditing', false);
       this.get('saveTask').perform();
+    },
+    toggleSummary() {
+      let showingSummary = this.get('showSummary');
+      if (showingSummary) {
+        this.set('showCopyStatus', false);
+        this.set('showSummary', false);
+        return;
+      }
+      this.set('showSummary', true);
+    },
+    onCopy() {
+      this.set('showCopyStatus', true);
     },
     createTopic(standup) {
       let newTopic = this.store.createRecord('topic', {

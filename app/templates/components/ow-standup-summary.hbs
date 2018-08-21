@@ -1,0 +1,23 @@
+<h1>Standup Notes for {{joda-format standup.date 'dddd, MMMM Do'}}</h1>
+{{#each standup.topics as |topic|}}
+  <h2>{{topic.subject}}</h2>
+  <h3>Yesterday</h3>
+  <ul>
+    {{#each topic.yesterdays as |entry|}}
+      <li>⬅️  {{entry.body}}</li>
+    {{/each}}
+  </ul>
+  <h3>Today</h3>
+  <ul>
+    {{#each topic.todays as |entry|}}
+      <li>➡️  {{entry.body}}</li>
+    {{/each}}
+  </ul>
+  <h3>Blockers</h3>
+  <ul>
+    {{#each topic.todays as |entry|}}
+      <li>🚨 {{entry.body}}</li>
+    {{/each}}
+  </ul>
+{{/each}}
+<p>Made using <a href="https://epicstandups.com">epicstandups.com</a></p>
