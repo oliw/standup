@@ -1,30 +1,32 @@
-<nav>
-  <ul>
-    <li>
-      {{#link-to 'index'}}Standup{{/link-to}}
+<nav class="nav">
+  <ul class="nav__section">
+    <li class="nav__item nav__logo">
+      {{#link-to 'index' class="nav__link"}}Epic Standups{{/link-to}}
     </li>
+  </ul>
+  <ul class="nav__section">
     {{#if loggedIn}}
-      <li>
-        {{#link-to 'authenticated.dashboard'}}Dashboard{{/link-to}}
+      <li class="nav__item">
+        {{#link-to 'authenticated.dashboard' class='nav__link'}}Dashboard{{/link-to}}
       </li>
     {{/if}}
-    <li>
-      {{#link-to 'about'}}About{{/link-to}}
+    <li class="nav__item">
+      {{#link-to 'about' class='nav__link'}}About{{/link-to}}
     </li>
     {{#if guest}}
-      <li>
-        {{#link-to 'pricing'}}Pricing{{/link-to}}
+      <li class="nav__item">
+        {{#link-to 'pricing' class='nav__link'}}Pricing{{/link-to}}
       </li>
-      <li>
-        {{#link-to 'login'}}Login{{/link-to}}
+      <li class="nav__item">
+        {{#link-to 'login' class='nav__link'}}Login{{/link-to}}
       </li>
-      <li>
-        {{#link-to 'register'}}Register{{/link-to}}
+      <li class="nav__item">
+        {{#link-to 'register' class='nav__link'}}Register{{/link-to}}
       </li>
     {{/if}}
     {{#if loggedIn}}
-      <li>
-        <a {{action 'logout'}}>Logout</a>
+      <li class="nav__item">
+        <a {{action 'logout' class='nav__link'}}>Logout</a>
       </li>
     {{/if}}
   </ul>

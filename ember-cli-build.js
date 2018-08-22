@@ -6,7 +6,7 @@ module.exports = function(defaults) {
   let env = EmberApp.env();
 
   let fingerprintOptions = {
-    prepend: (env === 'production') ? 'https://assets.epicstandups.com/': '',
+    prepend: 'https://assets.epicstandups.com/',
     extensions: ['js', 'css', 'png', 'jpg', 'gif', 'map', 'ico']
   };
 
