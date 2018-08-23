@@ -1,91 +1,91 @@
-<h1>{{model.title}}</h1>
-<p>{{joda-format model.date "MMMM Do YYYY"}}</p>
-{{#if showSummary}}
-  <div>
-    <button {{action 'toggleSummary'}}>Back to form</button>
-    {{#copy-button clipboardTarget='#js-standup-summary' success=(action 'onCopy')}}Copy summary to clipboard{{/copy-button}}
-    {{#if showCopyStatus}}
-      <span>This summary has been copied to your clipboard!</span>
+<div class='standup-header'>
+  <div class='standup-header--left'><p>{{joda-format model.date "dddd, MMMM Do"}}</p></div>
+  <div class='standup-header--right'>
+    {{#if showForm}}
+      {{#if model.hasNoTopics}}
+        <button class='btn--cta' {{action "createTopic" model}}>Add first topic</button>
+      {{/if}}
+      {{#if model.hasDirtyAttributesAndRelationships}}
+        <button class='btn' disabled={{saveDisabled}} {{action "save"}}>
+          {{#if saveTask.isRunning}}
+            Saving...
+          {{else if saveDisabled}}
+            Login to Save
+          {{else}}
+            Save
+          {{/if}}
+        </button>
+      {{/if}}
+      <label>
+        {{input type="checkbox" change=(action 'toggleSummary') checked=showSummary}}
+          Generate summary
+      </label>
+    {{/if}}
+    {{#if showSummary}}
+      <button {{action 'toggleSummary'}}>Back to form</button>
+      {{#copy-button clipboardTarget='#js-standup-summary' success=(action 'onCopy')}}Copy summary to clipboard{{/copy-button}}
+      {{#if showCopyStatus}}
+        <span>This summary has been copied to your clipboard!</span>
+      {{/if}}
     {{/if}}
   </div>
+</div>
+{{#if showSummary}}
   {{ow-standup-summary id='js-standup-summary' standup=model}}
 {{/if}}
 {{#if showForm}}
-  <div>
-    <button {{action "createTopic" model}}>
-      {{#if model.hasNoTopics}}
-        Add first topic
-      {{else}}
+  <div class='topics'>
+    {{#if model.hasSomeTopics}}
+      {{#each model.topics as |topic|}}
+        <div class="topic">
+          {{input type="text" placeholder="Topic, Theme or Person" value=topic.subject}}
+          {{#if topic.hasSubject}}
+            <h4>Yesterday</h4>
+            {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
+              {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
+                {{ow-entry value=item.body 
+                  selected=isSelected
+                  onEnter=(action "createEntry" topic topic.yesterdays item)
+                  onSelectRequest=selectItem 
+                  onRemoveRequest=(action "deleteEntry" topic item)
+                  onChange=(action (mut item.body))
+                  editable=isEditing}}
+              {{/ow-list}}
+            {{/ow-editor}}
+            {{ow-entry-new onClick=(action "createEntry" topic topic.yesterdays null)}}
+            <h4>Today</h4>
+            {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
+              {{#ow-list items=topic.todays as |item isSelected selectItem|}}
+                {{ow-entry value=item.body 
+                  selected=isSelected
+                  onEnter=(action "createEntry" topic topic.todays item)
+                  onSelectRequest=selectItem 
+                  onRemoveRequest=(action "deleteEntry" topic item)
+                  onChange=(action (mut item.body))
+                  editable=isEditing}}
+              {{/ow-list}}
+            {{/ow-editor}}
+            {{ow-entry-new onClick=(action "createEntry" topic topic.todays null)}}
+            <h4>Blockers</h4>
+            {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
+              {{#ow-list items=topic.blockers as |item isSelected selectItem|}}
+                {{ow-entry value=item.body 
+                  selected=isSelected
+                  onEnter=(action "createEntry" topic topic.blockers item)
+                  onSelectRequest=selectItem 
+                  onRemoveRequest=(action "deleteEntry" topic item)
+                  onChange=(action (mut item.body))
+                  editable=isEditing}}
+              {{/ow-list}}
+            {{/ow-editor}}
+            {{ow-entry-new onClick=(action "createEntry" topic topic.blockers null)}}
+          {{/if}}
+        </div>
+      {{/each}}
+      <button class='btn' {{action "createTopic" model}}>
         Add another topic
-      {{/if}}
-    </button>
-    {{#if model.hasDirtyAttributesAndRelationships}}
-      <button disabled={{saveDisabled}} {{action "save"}}>
-        {{#if saveTask.isRunning}}
-          Saving...
-        {{else if saveDisabled}}
-          Login to Save
-        {{else}}
-          Save
-        {{/if}}
       </button>
     {{/if}}
-    <label>
-      {{input type="checkbox" change=(action 'toggleSummary') checked=showSummary}}
-        Generate summary
-    </label>
   </div>
-  {{#if model.hasSomeTopics}}
-    <h2>Topics</h2>
-    {{#each model.topics as |topic|}}
-      <div>
-        {{input type="text" placeholder="Topic, Theme or Person" value=topic.subject}}
-        {{#if topic.hasSubject}}
-          <h4>Yesterday</h4>
-          {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
-            {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
-              {{ow-entry value=item.body 
-                selected=isSelected
-                onEnter=(action "createEntry" topic topic.yesterdays item)
-                onSelectRequest=selectItem 
-                onRemoveRequest=(action "deleteEntry" topic item)
-                onChange=(action (mut item.body))
-                editable=isEditing}}
-            {{/ow-list}}
-          {{/ow-editor}}
-          {{ow-entry-new onClick=(action "createEntry" topic topic.yesterdays null)}}
-          <h4>Today</h4>
-          {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
-            {{#ow-list items=topic.todays as |item isSelected selectItem|}}
-              {{ow-entry value=item.body 
-                selected=isSelected
-                onEnter=(action "createEntry" topic topic.todays item)
-                onSelectRequest=selectItem 
-                onRemoveRequest=(action "deleteEntry" topic item)
-                onChange=(action (mut item.body))
-                editable=isEditing}}
-            {{/ow-list}}
-          {{/ow-editor}}
-          {{ow-entry-new onClick=(action "createEntry" topic topic.todays null)}}
-          <h4>Blockers</h4>
-          {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
-            {{#ow-list items=topic.blockers as |item isSelected selectItem|}}
-              {{ow-entry value=item.body 
-                selected=isSelected
-                onEnter=(action "createEntry" topic topic.blockers item)
-                onSelectRequest=selectItem 
-                onRemoveRequest=(action "deleteEntry" topic item)
-                onChange=(action (mut item.body))
-                editable=isEditing}}
-            {{/ow-list}}
-          {{/ow-editor}}
-          {{ow-entry-new onClick=(action "createEntry" topic topic.blockers null)}}
-        {{/if}}
-      </div>
-    {{/each}}
-    <button {{action "createTopic" model}}>
-      Add another topic
-    </button>
-  {{/if}}
 {{/if}}
 {{outlet}}

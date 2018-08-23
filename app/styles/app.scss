@@ -1,5 +1,6 @@
 $primary-color: #EE4B6A;
 $text-color: #331832;
+$text-light-color: #FFFFFF;
 $background-color: #F2F2F2;
 $background-lighter-color: #FFFFFF;
 
@@ -64,4 +65,40 @@ footer {
     text-decoration: none;
     color: $primary-color;
   }
+}
+
+.btn {
+  background-color: $background-color;
+  border-radius: 2px;
+  text-align: center;
+  text-decoration: none;
+  &--cta {
+    background-color: $primary-color;
+    color: $text-light-color;
+  }
+}
+
+.login-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.standup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.topic {
+  background-color: $background-lighter-color;
 }
