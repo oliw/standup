@@ -1,17 +1,27 @@
+// Primary Colors
 $primary-color: #EE4B6A;
-$text-color: #331832;
-$text-light-color: #FFFFFF;
-$background-color: #F2F2F2;
-$background-lighter-color: #FFFFFF;
+$black: #331832;
+$grey: #F2F2F2;
+$white: #FFFFFF;
+
+// Secondary Colors
+$dark-grey: darken( $grey, 60% );
+
+$text-color: $black;
+$text-light-color: $white;
+$background-color: $white;
+$background-dark-color: $grey;
+
+
 
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker|Roboto');
-
 $logo-font: 'Permanent Marker';
 $text-font: 'Roboto';
+$text-size: 1em;
 
-$padding-small: 8px;
-$padding-medium: $padding-small*1.5;
-$padding-large: $padding-small*2;
+$space-small: 8px;
+$space-medium: $space-small*1.5;
+$space-large: $space-small*2;
 
 body, .container {
   width: 100%;
@@ -32,13 +42,13 @@ a {
 }
 
 header {
-  background-color: $background-lighter-color;
-  padding: 0 $padding-medium;
+  background-color: $background-color;
+  padding: 0 $space-medium;
 }
 
 main {
   flex: 1;
-  padding: $padding-medium;
+  padding: $space-medium;
 }
 
 footer {
@@ -53,7 +63,7 @@ footer {
   &__item {
     display: inline-block;
     text-decoration: none;
-    margin-right: $padding-small;
+    margin-right: $space-small;
   }
   &__section {
     padding: 0;
@@ -100,5 +110,44 @@ footer {
 }
 
 .topic {
-  background-color: $background-lighter-color;
+  background-color: $background-dark-color;
+  padding: $space-medium;
+  margin-right: $space-medium;
+  border-radius: 10px;
+  width: 200px;
+  &__title {
+    -webkit-appearance: none;
+    border: none;
+    background-color: $grey;
+    color: $dark-grey;
+  }
+  &__title:hover:not(:focus) {
+    border-bottom: 1px dotted $dark-grey;
+  }
+  &__title:focus {
+    color: $primary-color;
+    outline: none;
+  }
+  &__section {
+    color: $dark-grey;
+  }
+}
+
+.entry {
+  &__input {
+    background-color: inherit;
+    color: $dark-grey;
+    border: none;
+    border-bottom: 1px dotted $dark-grey;
+    width: 100%;
+    outline: none;
+    font-size: $text-size;
+  }
+  &__value {
+    color: $dark-grey;
+    border-bottom: 1px dotted $dark-grey;
+    width: 100%;
+    font-size: $text-size;
+    margin: 0;
+  }
 }

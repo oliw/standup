@@ -38,48 +38,46 @@
     {{#if model.hasSomeTopics}}
       {{#each model.topics as |topic|}}
         <div class="topic">
-          {{input type="text" placeholder="Topic, Theme or Person" value=topic.subject}}
-          {{#if topic.hasSubject}}
-            <h4>Yesterday</h4>
-            {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
-              {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
-                {{ow-entry value=item.body 
-                  selected=isSelected
-                  onEnter=(action "createEntry" topic topic.yesterdays item)
-                  onSelectRequest=selectItem 
-                  onRemoveRequest=(action "deleteEntry" topic item)
-                  onChange=(action (mut item.body))
-                  editable=isEditing}}
-              {{/ow-list}}
-            {{/ow-editor}}
-            {{ow-entry-new onClick=(action "createEntry" topic topic.yesterdays null)}}
-            <h4>Today</h4>
-            {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
-              {{#ow-list items=topic.todays as |item isSelected selectItem|}}
-                {{ow-entry value=item.body 
-                  selected=isSelected
-                  onEnter=(action "createEntry" topic topic.todays item)
-                  onSelectRequest=selectItem 
-                  onRemoveRequest=(action "deleteEntry" topic item)
-                  onChange=(action (mut item.body))
-                  editable=isEditing}}
-              {{/ow-list}}
-            {{/ow-editor}}
-            {{ow-entry-new onClick=(action "createEntry" topic topic.todays null)}}
-            <h4>Blockers</h4>
-            {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
-              {{#ow-list items=topic.blockers as |item isSelected selectItem|}}
-                {{ow-entry value=item.body 
-                  selected=isSelected
-                  onEnter=(action "createEntry" topic topic.blockers item)
-                  onSelectRequest=selectItem 
-                  onRemoveRequest=(action "deleteEntry" topic item)
-                  onChange=(action (mut item.body))
-                  editable=isEditing}}
-              {{/ow-list}}
-            {{/ow-editor}}
-            {{ow-entry-new onClick=(action "createEntry" topic topic.blockers null)}}
-          {{/if}}
+          {{input type="text" class="topic__title" placeholder="Topic, Theme or Person" value=topic.subject}}
+          <h4 class="topic__section">Yesterday</h4>
+          {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
+            {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
+              {{ow-entry class="topic__entry" value=item.body 
+                selected=isSelected
+                onEnter=(action "createEntry" topic topic.yesterdays item)
+                onSelectRequest=selectItem 
+                onRemoveRequest=(action "deleteEntry" topic item)
+                onChange=(action (mut item.body))
+                editable=isEditing}}
+            {{/ow-list}}
+          {{/ow-editor}}
+          {{ow-entry-new onClick=(action "createEntry" topic topic.yesterdays null)}}
+          <h4 class="topic__section">Today</h4>
+          {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
+            {{#ow-list items=topic.todays as |item isSelected selectItem|}}
+              {{ow-entry value=item.body 
+                selected=isSelected
+                onEnter=(action "createEntry" topic topic.todays item)
+                onSelectRequest=selectItem 
+                onRemoveRequest=(action "deleteEntry" topic item)
+                onChange=(action (mut item.body))
+                editable=isEditing}}
+            {{/ow-list}}
+          {{/ow-editor}}
+          {{ow-entry-new onClick=(action "createEntry" topic topic.todays null)}}
+          <h4 class="topic__section">Blockers</h4>
+          {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
+            {{#ow-list items=topic.blockers as |item isSelected selectItem|}}
+              {{ow-entry value=item.body 
+                selected=isSelected
+                onEnter=(action "createEntry" topic topic.blockers item)
+                onSelectRequest=selectItem 
+                onRemoveRequest=(action "deleteEntry" topic item)
+                onChange=(action (mut item.body))
+                editable=isEditing}}
+            {{/ow-list}}
+          {{/ow-editor}}
+          {{ow-entry-new onClick=(action "createEntry" topic topic.blockers null)}}
         </div>
       {{/each}}
       <button class='btn' {{action "createTopic" model}}>
