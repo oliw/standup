@@ -3,7 +3,6 @@
   <div class='standup-header--right'>
     {{#if showForm}}
       {{#if model.hasNoTopics}}
-        <button class='btn--cta' {{action "createTopic" model}}>Add first topic</button>
       {{/if}}
       {{#if model.hasDirtyAttributesAndRelationships}}
         <button class='btn' disabled={{saveDisabled}} {{action "save"}}>
@@ -16,10 +15,7 @@
           {{/if}}
         </button>
       {{/if}}
-      <label>
-        {{input type="checkbox" change=(action 'toggleSummary') checked=showSummary}}
-          Generate summary
-      </label>
+      <button class='btn' {{action 'toggleSummary'}}>Generate Summary</button>
     {{/if}}
     {{#if showSummary}}
       <button {{action 'toggleSummary'}}>Back to form</button>
@@ -35,6 +31,9 @@
 {{/if}}
 {{#if showForm}}
   <div class='topics'>
+    {{#if model.hasNoTopics}}
+      <button class='topics__add btn btn--cta' {{action "createTopic" model}}>Add first topic</button>
+    {{/if}}
     {{#if model.hasSomeTopics}}
       {{#each model.topics as |topic|}}
         <div class="topic">
@@ -80,7 +79,7 @@
           {{ow-entry-new onClick=(action "createEntry" topic topic.blockers null)}}
         </div>
       {{/each}}
-      <button class='btn' {{action "createTopic" model}}>
+      <button class='topics__add btn' {{action "createTopic" model}}>
         Add another topic
       </button>
     {{/if}}

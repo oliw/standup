@@ -23,6 +23,9 @@ $space-small: 8px;
 $space-medium: $space-small*1.5;
 $space-large: $space-small*2;
 
+$rounding-small: 5px;
+$rounding-large: 10px;
+
 body, .container {
   width: 100%;
   height: 100%;
@@ -79,9 +82,12 @@ footer {
 
 .btn {
   background-color: $background-color;
-  border-radius: 2px;
+  border-radius: $rounding-small;
   text-align: center;
   text-decoration: none;
+  padding: $space-small;
+  outline: none;
+  cursor: pointer;
   &--cta {
     background-color: $primary-color;
     color: $text-light-color;
@@ -107,14 +113,20 @@ footer {
 .topics {
   display: flex;
   flex-wrap: wrap;
+  &__add {
+    height: 324px;
+    width: 200px;
+  };
 }
 
 .topic {
   background-color: $background-dark-color;
   padding: $space-medium;
   margin-right: $space-medium;
-  border-radius: 10px;
+  margin-bottom: $space-medium;
+  border-radius: $rounding-large;
   width: 200px;
+  min-height: 300px;
   &__title {
     -webkit-appearance: none;
     border: none;
