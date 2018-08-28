@@ -32,18 +32,18 @@ export default Route.extend({
       standup = standups.find(s => {
         return s.get('date').equals(date);
       });
-      if (standup === undefined) {
-        standup = await this.get('store').createRecord('standup', {
-          title: dayOfWeek,
-          date: date,
-          owner: this.get('session.data.authenticated.uid')
-        });
-      }
     } else {
-        standup = await this.get('store').createRecord('standup', {
-          title: dayOfWeek,
-          date: date
-        });
+      let standups = await this.store.findAll('standup');
+      standup = standups.find(s => {
+        return s.get('date').equals(date);
+      });
+    }
+    if (standup === undefined) {
+      standup = await this.get('store').createRecord('standup', {
+        title: dayOfWeek,
+        date: date,
+        owner: this.get('session.data.authenticated.uid')
+      });
     }
     return standup;
   }

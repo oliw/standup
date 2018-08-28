@@ -5,11 +5,9 @@
       {{#if model.hasNoTopics}}
       {{/if}}
       {{#if model.hasDirtyAttributesAndRelationships}}
-        <button class='btn' disabled={{saveDisabled}} {{action "save"}}>
+        <button class='btn' {{action "save"}}>
           {{#if saveTask.isRunning}}
             Saving...
-          {{else if saveDisabled}}
-            Login to Save
           {{else}}
             Save
           {{/if}}
