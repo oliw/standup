@@ -1,35 +1,41 @@
 import Component from '@ember/component';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { not } from '@ember/object/computed';
+import { not, filterBy, gt } from '@ember/object/computed';
 import { schedule } from '@ember/runloop';
+import { observer } from '@ember/object';
+import { on } from '@ember/object/evented';
+
 
 export default Component.extend({
   store: service(),
   session: service(),
   isEditing: false,
   saveDisabled: not('session.isAuthenticated'),
-  savePending: alias('model.hasDirtyAttributesAndRelationships'),
-  saveTask: task(function * () {
+  savePending: gt('dirtySaveables.length', 0),
+  saveables: computed('model', 'model.topics.[]', 'model.allEntries.[]', function() {
     let model = this.get('model');
-    let saveables = [];
-    model.get('topics').forEach(topic => {
-      topic.get('yesterdays').forEach(entry => {
-        saveables.push(entry);
-      });
-      topic.get('todays').forEach(entry => {
-        saveables.push(entry);
-      });
-      topic.get('blockers').forEach(entry => {
-        saveables.push(entry);
-      });
-      saveables.push(topic);
-    });
-    saveables.push(model);
+    let saveables = [model];
+    saveables = saveables.concat(model.get('topics').toArray());
+    saveables = saveables.concat(model.get('allEntries'));
+    return saveables;
+  }),
+  dirtySaveables: filterBy('saveables', 'hasDirtyAttributes', true),
+  saveTask: task(function * () {
+    let saveables = this.get('dirtySaveables');
     yield saveables.map(saveable => saveable.save());
   }).drop(),
+  autosaveTask: task(function * () {
+    yield timeout(1000);
+    this.get('saveTask').perform();
+  }).restartable(),
+  autosaveTasks: on('init', observer('savePending', function() {
+    if (this.get('savePending')) {
+      this.get('autosaveTask').perform();
+    }
+  })),
   showSummary: false,
   showForm: not('showSummary'),
   showCopyStatus: false,
@@ -56,6 +62,9 @@ export default Component.extend({
         owner: this.get('session.data.authenticated.uid')
       });
       standup.get('topics').addObject(newTopic);
+      newTopic.save().then(function() {
+        return standup.save();
+      });
     },
     createEntry(topic, entries, afterEntry, value) {
       let body = value === undefined ? '' : value;
@@ -69,6 +78,9 @@ export default Component.extend({
         let index = entries.indexOf(afterEntry);
         entries.insertAt(index+1, newEntry);
       }
+      newEntry.save().then(function() {
+        return topic.save();
+      });
       this.set('isEditing', true);
     },
     deleteEntry(topic, entry) {

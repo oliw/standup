@@ -1,7 +1,6 @@
 import DS from 'ember-data';
-import DirtiableMixin from 'standup/mixins/dirtiable-mixin';
 
-export default DS.Model.extend(DirtiableMixin, {
+export default DS.Model.extend({
   body: DS.attr('string'),
   owner: DS.attr('string')
 });

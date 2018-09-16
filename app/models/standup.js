@@ -1,14 +1,20 @@
 import DS from 'ember-data';
-import DirtiableMixin from 'standup/mixins/dirtiable-mixin';
 import { equal, gt } from '@ember/object/computed';
+import { computed } from '@ember/object';
 
-export default DS.Model.extend(DirtiableMixin, {
+export default DS.Model.extend({
   title: DS.attr('string'),
   date: DS.attr('local-date'),
   creatorId: DS.attr('string'),
   createdAt: DS.attr('date'),
   owner: DS.attr('string'),
-  topics: DS.hasMany('topic'),
+  topics: DS.hasMany('topic', { async: true, inverse: null }),
   hasNoTopics: equal('topics.length', 0),
-  hasSomeTopics: gt('topics.length', 0)
+  hasSomeTopics: gt('topics.length', 0),
+
+  allEntries: computed('topics.@each.allEntries', function() {
+    return this.get('topics').reduce(function(acc, topic) {
+      return acc.concat(topic.get('allEntries'));
+    }, []);
+  })
 });
