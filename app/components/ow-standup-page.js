@@ -71,6 +71,11 @@ export default Component.extend({
         return standup.save();
       });
     },
+    deleteTopic(topic, standup) {
+      topic.destroyRecord().then(function() {
+        standup.save();
+      });
+    },
     createEntry(topic, entries, afterEntry, value) {
       let body = value === undefined ? '' : value;
       let newEntry = this.store.createRecord('entry', {

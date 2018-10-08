@@ -38,14 +38,21 @@
     {{#if model.hasSomeTopics}}
       {{#each model.topics as |topic|}}
         <div class="topic">
-          {{input type="text" class="topic__title" placeholder="Topic, Theme or Person" value=topic.subject}}
+          <div class="card-header">
+            <div class="card-header__left">
+              {{input type="text" class="topic__title" placeholder="Topic, Theme or Person" value=topic.subject}}
+            </div>
+            <div class="card-header__right">
+              {{fa-icon "remove" click=(action "deleteTopic" topic model)}}
+            </div>
+          </div>
           <h4 class="topic__section">Yesterday</h4>
           {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
             {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
               {{ow-entry class="topic__entry" value=item.body 
                 selected=isSelected
                 onEnter=(action "createEntry" topic topic.yesterdays item)
-                onSelectRequest=selectItem 
+                onSelectRequest=selectItem
                 onRemoveRequest=(action "deleteEntry" topic item)
                 onChange=(action (mut item.body))
                 editable=isEditing}}

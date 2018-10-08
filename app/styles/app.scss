@@ -119,6 +119,12 @@ footer {
   };
 }
 
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .topic {
   background-color: $background-dark-color;
   padding: $space-medium;
