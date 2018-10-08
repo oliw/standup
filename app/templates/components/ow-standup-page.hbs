@@ -13,6 +13,9 @@
           {{/if}}
         </button>
       {{/if}}
+      {{#if showQuestionOfTheDayButton}}
+        <button class='btn' {{action 'showQuestionOfTheDay'}}>Insert Question of the Day</button>
+      {{/if}}
       <button class='btn' {{action 'toggleSummary'}}>Generate Summary</button>
     {{/if}}
     {{#if showSummary}}
@@ -80,6 +83,11 @@
       <button class='topics__add btn' {{action "createTopic" model}}>
         Add another topic
       </button>
+      {{#if showQuestionOfTheDay}}
+        <div>
+          <h3>Question of The Day</h3>
+        </div>
+      {{/if}}
     {{/if}}
   </div>
 {{/if}}

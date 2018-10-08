@@ -39,6 +39,8 @@ export default Component.extend({
   showSummary: false,
   showForm: not('showSummary'),
   showCopyStatus: false,
+  showQuestionOfTheDayButton: not('showQuestionOfTheDay'),
+  showQuestionOfTheDay: false,
   actions: {
     save() {
       this.set('isEditing', false);
@@ -52,6 +54,9 @@ export default Component.extend({
         return;
       }
       this.set('showSummary', true);
+    },
+    showQuestionOfTheDay() {
+      this.set('showQuestionOfTheDay', true);
     },
     onCopy() {
       this.set('showCopyStatus', true);
