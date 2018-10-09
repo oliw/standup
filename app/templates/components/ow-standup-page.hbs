@@ -37,16 +37,16 @@
     {{/if}}
     {{#if model.hasSomeTopics}}
       {{#each model.topics as |topic|}}
-        <div class="topic">
+        <div class="card">
           <div class="card-header">
             <div class="card-header__left">
-              {{input type="text" class="topic__title" placeholder="Topic, Theme or Person" value=topic.subject}}
+              {{input type="text" class="card__title" placeholder="Topic, Theme or Person" value=topic.subject}}
             </div>
             <div class="card-header__right">
               {{fa-icon "remove" click=(action "deleteTopic" topic model)}}
             </div>
           </div>
-          <h4 class="topic__section">Yesterday</h4>
+          <h4 class="card__section">Yesterday</h4>
           {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
             {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
               {{ow-entry class="topic__entry" value=item.body 
@@ -59,7 +59,7 @@
             {{/ow-list}}
           {{/ow-editor}}
           {{ow-entry-new onClick=(action "createEntry" topic topic.yesterdays null)}}
-          <h4 class="topic__section">Today</h4>
+          <h4 class="card__section">Today</h4>
           {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
             {{#ow-list items=topic.todays as |item isSelected selectItem|}}
               {{ow-entry value=item.body 
@@ -72,7 +72,7 @@
             {{/ow-list}}
           {{/ow-editor}}
           {{ow-entry-new onClick=(action "createEntry" topic topic.todays null)}}
-          <h4 class="topic__section">Blockers</h4>
+          <h4 class="card__section">Blockers</h4>
           {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
             {{#ow-list items=topic.blockers as |item isSelected selectItem|}}
               {{ow-entry value=item.body 
@@ -87,13 +87,15 @@
           {{ow-entry-new onClick=(action "createEntry" topic topic.blockers null)}}
         </div>
       {{/each}}
-      <button class='topics__add btn' {{action "createTopic" model}}>
+      <button class='card__add btn' {{action "createTopic" model}}>
         Add another topic
       </button>
       {{#if showQuestionOfTheDay}}
-        <div>
-          <h3>{{model.questionOfTheDay.question}}</h3>
-          {{fa-icon "remove" click=(action "deleteQuestionOfTheDay")}}
+        <div class="card">
+          <div class="card-header">
+            <h3>{{model.questionOfTheDay.question}}</h3>
+            {{fa-icon "remove" click=(action "deleteQuestionOfTheDay")}}
+          </div>
           {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
           {{#ow-list items=model.questionOfTheDay.answers as |item isSelected selectItem|}}
             {{ow-entry value=item.value 
