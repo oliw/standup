@@ -3,7 +3,7 @@ import { task, timeout } from 'ember-concurrency';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { not, filterBy, gt } from '@ember/object/computed';
+import { not, filterBy, gt, none, notEmpty } from '@ember/object/computed';
 import { schedule } from '@ember/runloop';
 import { observer } from '@ember/object';
 import { on } from '@ember/object/evented';
@@ -39,8 +39,8 @@ export default Component.extend({
   showSummary: false,
   showForm: not('showSummary'),
   showCopyStatus: false,
-  showQuestionOfTheDayButton: not('showQuestionOfTheDay'),
-  showQuestionOfTheDay: false,
+  showQuestionOfTheDayButton: none('model.questionOfTheDay.question'),
+  showQuestionOfTheDay: notEmpty('model.questionOfTheDay.question'),
   actions: {
     save() {
       this.set('isEditing', false);
@@ -55,8 +55,47 @@ export default Component.extend({
       }
       this.set('showSummary', true);
     },
-    showQuestionOfTheDay() {
-      this.set('showQuestionOfTheDay', true);
+    createQuestionOfTheDay() {
+      let newQuestionOfTheDay = this.store.createRecord('question-of-the-day', {
+        question: "Would you rather eat cake or ice cream?",
+        owner: this.get('session.data.authenticated.uid')
+      });
+      let standup = this.get('model');
+      standup.set('questionOfTheDay', newQuestionOfTheDay);
+      newQuestionOfTheDay.save().then(function() {
+        return standup.save();
+      });
+    },
+    deleteQuestionOfTheDay() {
+      let standup = this.get('model');
+      let questionOfTheDay = standup.get('questionOfTheDay');
+      questionOfTheDay.then((record) => {
+        record.destroyRecord().then(function() {
+          return standup.save();
+        });
+      });
+    },
+    createQuestionOfTheDayAnswer(questionOfTheDay, answers, afterAnswer, value) {
+      let body = value === undefined ? '' : value;
+      let newAnswer = this.store.createRecord('question-of-the-day-answer', {
+        body: body,
+        owner: this.get('session.data.authenticated.uid')
+      });
+      if (afterAnswer === null || afterAnswer === undefined) {
+        answers.addObject(newAnswer);
+      } else {
+        let index = answers.indexOf(afterAnswer);
+        answers.insertAt(index+1, newAnswer);
+      }
+      newAnswer.save().then(function() {
+        return questionOfTheDay.then((record) => record.save());
+      });
+      this.set('isEditing', true);
+    },
+    deleteQuestionOfTheDayAnswer(questionOfTheDay, answer) {
+      answer.destroyRecord().then((questionOfTheDay) => {
+        questionOfTheDay.save();
+      });
     },
     onCopy() {
       this.set('showCopyStatus', true);

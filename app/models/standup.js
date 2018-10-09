@@ -11,6 +11,7 @@ export default DS.Model.extend({
   topics: DS.hasMany('topic', { async: true, inverse: null }),
   hasNoTopics: equal('topics.length', 0),
   hasSomeTopics: gt('topics.length', 0),
+  questionOfTheDay: DS.belongsTo('question-of-the-day', { async: true, inverse: null }),
 
   allEntries: computed('topics.@each.allEntries', function() {
     return this.get('topics').reduce(function(acc, topic) {

@@ -14,7 +14,7 @@
         </button>
       {{/if}}
       {{#if showQuestionOfTheDayButton}}
-        <button class='btn' {{action 'showQuestionOfTheDay'}}>Insert Question of the Day</button>
+        <button class='btn' {{action 'createQuestionOfTheDay'}}>Insert Question of the Day</button>
       {{/if}}
       <button class='btn' {{action 'toggleSummary'}}>Generate Summary</button>
     {{/if}}
@@ -92,7 +92,20 @@
       </button>
       {{#if showQuestionOfTheDay}}
         <div>
-          <h3>Question of The Day</h3>
+          <h3>{{model.questionOfTheDay.question}}</h3>
+          {{fa-icon "remove" click=(action "deleteQuestionOfTheDay")}}
+          {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
+          {{#ow-list items=model.questionOfTheDay.answers as |item isSelected selectItem|}}
+            {{ow-entry value=item.value 
+              selected=isSelected
+              onEnter=(action "createQuestionOfTheDayAnswer" model.questionOfTheDay model.questionOfTheDay.answers item)
+              onSelectRequest=selectItem 
+              onRemoveRequest=(action "deleteQuestionOfTheDayAnswer" model.questionOfTheDay item)
+              onChange=(action (mut item.value))
+              editable=isEditing}}
+          {{/ow-list}}
+          {{/ow-editor}}
+          {{ow-entry-new onClick=(action "createQuestionOfTheDayAnswer" model.questionOfTheDay model.questionOfTheDay.answers null)}}
         </div>
       {{/if}}
     {{/if}}
