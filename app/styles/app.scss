@@ -125,6 +125,13 @@ footer {
   align-items: center;
 }
 
+.card-add {
+  width: 200px;
+  min-height: 300px;
+  margin-right: $space-medium;
+  margin-bottom: $space-medium;
+}
+
 .card {
   background-color: $background-dark-color;
   padding: $space-medium;
