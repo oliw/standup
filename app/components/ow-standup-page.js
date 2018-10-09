@@ -7,7 +7,7 @@ import { not, filterBy, gt, none, notEmpty } from '@ember/object/computed';
 import { schedule } from '@ember/runloop';
 import { observer } from '@ember/object';
 import { on } from '@ember/object/evented';
-
+import DS from 'ember-data';
 
 export default Component.extend({
   store: service(),
@@ -15,12 +15,25 @@ export default Component.extend({
   isEditing: false,
   saveDisabled: not('session.isAuthenticated'),
   savePending: gt('dirtySaveables.length', 0),
-  saveables: computed('model', 'model.topics.[]', 'model.allEntries.[]', function() {
-    let model = this.get('model');
-    let saveables = [model];
-    saveables = saveables.concat(model.get('topics').toArray());
-    saveables = saveables.concat(model.get('allEntries'));
-    return saveables;
+  saveables: computed('model', 'model.topics.[]', 'model.allEntries.[]', 'model.questionOfTheDay', 'model.questionOfTheDay.answers.@each.value', function() {
+    let collectSaveables = async () => {
+      let saveables = [this.get('model')];
+      let topics = await this.get('model.topics').toArray();
+      let entries = await this.get('model.allEntries');
+      saveables = saveables.concat(topics);
+      saveables = saveables.concat(entries);
+      let questionOfTheDay = await this.get('model.questionOfTheDay');
+      if (questionOfTheDay !== null) {
+        saveables = saveables.concat([questionOfTheDay]);
+        let answers = await questionOfTheDay.get('answers').toArray();
+        saveables = saveables.concat(answers);
+      }
+      return saveables;
+    };
+
+    return DS.PromiseArray.create({
+        promise: collectSaveables()
+    });
   }),
   dirtySaveables: filterBy('saveables', 'hasDirtyAttributes', true),
   saveTask: task(function * () {
