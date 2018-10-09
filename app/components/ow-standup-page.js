@@ -12,6 +12,7 @@ import DS from 'ember-data';
 export default Component.extend({
   store: service(),
   session: service(),
+  questionOfTheDay: service(),
   isEditing: false,
   saveDisabled: not('session.isAuthenticated'),
   savePending: gt('dirtySaveables.length', 0),
@@ -69,14 +70,23 @@ export default Component.extend({
       this.set('showSummary', true);
     },
     createQuestionOfTheDay() {
+      let questionOfTheDayService = this.get('questionOfTheDay');
       let newQuestionOfTheDay = this.store.createRecord('question-of-the-day', {
-        question: "Would you rather eat cake or ice cream?",
+        question: questionOfTheDayService.generateRandomQuestion(),
         owner: this.get('session.data.authenticated.uid')
       });
       let standup = this.get('model');
       standup.set('questionOfTheDay', newQuestionOfTheDay);
       newQuestionOfTheDay.save().then(function() {
         return standup.save();
+      });
+    },
+    refreshQuestionOfTheDay() {
+      let questionOfTheDayService = this.get('questionOfTheDay');
+      let questionOfTheDayPromise = this.get('model.questionOfTheDay');
+      questionOfTheDayPromise.then((record) => {
+        record.set('question', questionOfTheDayService.generateRandomQuestion());
+        record.save();
       });
     },
     deleteQuestionOfTheDay() {

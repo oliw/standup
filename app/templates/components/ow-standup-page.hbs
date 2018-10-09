@@ -94,7 +94,10 @@
         <div class="card">
           <div class="card-header">
             <h3>{{model.questionOfTheDay.question}}</h3>
-            {{fa-icon "remove" click=(action "deleteQuestionOfTheDay")}}
+            <div>
+              {{fa-icon "refresh" click=(action "refreshQuestionOfTheDay")}}
+              {{fa-icon "remove" click=(action "deleteQuestionOfTheDay")}}
+            </div>
           </div>
           {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
           {{#ow-list items=model.questionOfTheDay.answers as |item isSelected selectItem|}}
