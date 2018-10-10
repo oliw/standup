@@ -58,6 +58,22 @@ footer {
   background-color: $background-color;
 }
 
+.standup-page {
+  &--blurred {
+    filter: blur(3px) grayscale(50%);
+    pointer-events: none;
+  }
+}
+
+.standup-modal {
+  background: $white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: $space-medium;
+}
+
 .nav {
   display: flex;
   flex-direction: row;
