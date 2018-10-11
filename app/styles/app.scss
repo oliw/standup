@@ -17,6 +17,7 @@ $background-dark-color: $grey;
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker|Roboto');
 $logo-font: 'Permanent Marker';
 $text-font: 'Roboto';
+$summary-font: "Arial", "Helvetica", sans-serif;
 $text-size: 1em;
 
 $space-small: 8px;
@@ -72,6 +73,20 @@ footer {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: $space-medium;
+  &__content {
+    overflow-y: auto;
+    max-height: calc(100vh - 210px);
+    font-family: $summary-font;
+    h1 {
+      font-size: 1.5em;
+    }
+    h2 {
+      font-size: 1.25em;
+    }
+    h3 {
+      font-size: 1em;
+    }
+  }
 }
 
 .nav {
@@ -191,4 +206,10 @@ footer {
     font-size: $text-size;
     margin: 0;
   }
+}
+
+.upsell {
+  color: $dark-grey;
+  margin: 0;
+  font-size: 0.75em;
 }

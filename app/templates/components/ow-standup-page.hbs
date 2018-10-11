@@ -104,7 +104,9 @@
 </div>
 {{#if showSummary}}
   <div class="standup-modal">
-    {{ow-standup-summary id='js-standup-summary' standup=model}}
+    <div class="standup-modal__content">
+      {{ow-standup-summary id='js-standup-summary' standup=model}}
+    </div>
     <button {{action 'toggleSummary'}}>Back to form</button>
     {{#copy-button clipboardTarget='#js-standup-summary' success=(action 'onCopy')}}Copy summary to clipboard{{/copy-button}}
     {{#if showCopyStatus}}
