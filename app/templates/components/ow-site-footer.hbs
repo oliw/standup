@@ -1,0 +1,8 @@
+<button class="btn" {{action 'showFeedback'}}>{{fa-icon "comment"}} Leave Me Feedback</button>
+{{#if showFeedbackForm}}
+  <div class="modal">
+    {{textarea class="feedback__input" value=feedback.body placeholder="Send me your improvement suggestions or info about any bugs you've noticed"}}
+    <button class="btn" {{action 'dismissFeedback'}}>Cancel</button>
+    <button class="btn" {{action 'submitFeedback'}}>Submit Feedback</button>
+  </div>
+{{/if}}
