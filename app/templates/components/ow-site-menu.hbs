@@ -13,17 +13,17 @@
     <li class="nav__item">
       {{#link-to 'about' class='nav__link'}}About{{/link-to}}
     </li>
-    {{#if guest}}
-      <li class="nav__item">
-        {{#link-to 'pricing' class='nav__link'}}Pricing{{/link-to}}
-      </li>
-      <li class="nav__item">
-        {{#link-to 'login' class='nav__link'}}Login{{/link-to}}
-      </li>
-      <li class="nav__item">
-        {{#link-to 'register' class='nav__link'}}Register{{/link-to}}
-      </li>
-    {{/if}}
+    {{!--  {{#if guest}}  --}}
+      {{!--  <li class="nav__item">  --}}
+        {{!--  {{#link-to 'pricing' class='nav__link'}}Pricing{{/link-to}}  --}}
+      {{!--  </li>  --}}
+      {{!--  <li class="nav__item">  --}}
+        {{!--  {{#link-to 'login' class='nav__link'}}Login{{/link-to}}  --}}
+      {{!--  </li>  --}}
+      {{!--  <li class="nav__item">  --}}
+        {{!--  {{#link-to 'register' class='nav__link'}}Register{{/link-to}}  --}}
+      {{!--  </li>  --}}
+    {{!--  {{/if}}  --}}
     {{#if loggedIn}}
       <li class="nav__item">
         <a {{action 'logout' class='nav__link'}}>Logout</a>
