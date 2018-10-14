@@ -24,4 +24,12 @@
     <p>None</p>
   {{/if}}
 {{/each}}
+{{#if standup.questionOfTheDay}}
+  <h2>{{standup.questionOfTheDay.question}}</h2>
+  <ul>
+  {{#each standup.questionOfTheDay.answers as |answer|}}
+  <li>{{answer.value}}</li>
+  {{/each}}
+  </ul>
+{{/if}}
 <p class="upsell">Made with <a href="https://epicstandups.com">epicstandups.com</a></p>
