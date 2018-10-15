@@ -11,67 +11,29 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
   editable: false,
   onSelectRequest: null,
   onRemoveRequest: null,
-  formattedValue: (function() {
-    let value = this.get('value');
-    if (value == '' && !this.get('isEditing')) {
-      return 'Blank entry';
-    } else {
-      return value;
-    }
-  }).property('value', 'isEditing'),
-
   isEditing: and('selected', 'editable'),
   isNotEditing: not('isEditing'),
   onInsert: on('didInsertElement', function() {
-    let isEditing = this.get('isEditing');
-    if (isEditing) {
+    let isSelected = this.get('selected');
+    if (isSelected) {
       Ember.run.schedule('afterRender', () => {
-        this.$('input').focus();
+        this.$('textArea').focus();
       });
     }
   }),
-  onEdit: observer('isEditing', function() {
-    let isEditing = this.get('isEditing');
-    if (isEditing) {
-      Ember.run.schedule('afterRender', () => {
-        this.$('input').focus();
-      });
-    } else if (this.get('selected')) {
-      Ember.run.schedule('afterRender', () => {
-        this.$('p.label').focus();
-      });
+  onSelect: observer('selected', function() {
+    if (!this.get('selected')) {
+      return;
     }
+    Ember.run.schedule('afterRender', () => {
+      this.$('textArea').focus();
+    });
   }),
   tabIndex: computed('selected', function() {
     if (this.get('selected')) {
       return "-1";
     } else {
       return null;
-    }
-  }),
-  handleDelete: on(keyUp('Backspace'), function() {
-    let isEditing = this.get('isEditing');
-    let selected = this.get('selected');
-    let handler = this.get('onRemoveRequest');
-    if (!handler) {
-      return;
-    }
-    if (isEditing && this.get('value') === '') {
-      let isPrimed = this.get('isPrimed');
-      if (this.get('isPrimedForDeletion')) {
-        handler();
-        this.set('isPrimedForDeletion', false);
-      } else {
-        this.set('isPrimedForDeletion', true);
-      }
-    } else if (selected && !isEditing) {
-      handler();
-    }
-  }),
-  handleEnter: on(keyUp('Enter'), function() {
-    let handler = this.get('onEnter');
-    if (handler && this.get('editable')) {
-      handler();
     }
   }),
   click() {
@@ -81,11 +43,24 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
     }
   },
   actions: {
-    handleChange(event) {
-      event.preventDefault();
-      let newValue = event.target.value;
+    handleChange(newValue) {
       if (this.get('onChange')) {
         this.get('onChange')(newValue);
+      }
+    },
+    handleEnter() {
+      let handler = this.get('onEnter');
+      if (handler && this.get('editable')) {
+        handler();
+      }
+    },
+    handleDelete() {
+      let handler = this.get('onRemoveRequest');
+      if (!handler) {
+        return;
+      }
+      if (this.get('value') === '') {
+        handler();
       }
     }
   }

@@ -1,10 +1,14 @@
-{{#if isEditing}}
-<input class="entry__input"
-  placeholder="Entry" 
-  escape-press="escape" 
-  value={{formattedValue}}
-  onInput={{action 'handleChange'}}
-  disabled={{isNotEditing}} />
-{{else}}
-<p class="entry__value" tabindex={{tabIndex}}>{{formattedValue}}</p>
-{{/if}}
+{{ow-textarea 
+  class="entry__input"
+  placeholder="Entry"
+  escape-press="escape"
+  placeholder="Blank Entry"
+  insert-newline='handleEnter'
+  backspace-press='handleDelete'
+  value=value}}
+{{!--  <input class="entry__input"  --}}
+  {{!--  placeholder="Entry"   --}}
+  {{!--  escape-press="escape"   --}}
+  {{!--  value={{formattedValue}}  --}}
+  {{!--  onInput={{action 'handleChange'}}  --}}
+  {{!--  disabled={{isNotEditing}} />  --}}

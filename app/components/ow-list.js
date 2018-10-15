@@ -1,12 +1,11 @@
 import Component from '@ember/component';
-import { EKMixin, EKOnFocusMixin, keyUp } from 'ember-keyboard';
+import { EKMixin, EKOnFocusMixin, keyUp, keyDown } from 'ember-keyboard';
 import { on } from '@ember/object/evented';
 import { observer } from '@ember/object';
 
 export default Component.extend(EKMixin, EKOnFocusMixin, {
   items: null,
   onInsertRequest: null,
-
   selectedIndex: 0,
   selectedItem: (function() {
     if (this.selectedIndex === -1) {
@@ -34,7 +33,7 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
       this.incrementProperty('selectedIndex');
     }
   }),
-  listenForUp: on(keyUp('ArrowUp'), function() {
+  listenForUp: on(keyDown('ArrowUp'), function() {
     this.goUp();
   }),
   listenForDown: on(keyUp('ArrowDown'), function() {

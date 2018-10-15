@@ -6,6 +6,7 @@ import { scheduleOnce } from '@ember/runloop';
 
 export default TextArea.extend({
   rows: 1,
+  makeFirstResponderOnFocusIn: null,
   initializeAutosize: on('didInsertElement', function() {
     autosize(this.$());
   }),
@@ -16,5 +17,16 @@ export default TextArea.extend({
     scheduleOnce('afterRender', () => {
       autosize.update(this.$());
     });
-  })
+  }),
+  keyDown: function(event) {
+    if (event.key == 'Enter') {
+      event.preventDefault();
+    }
+    if (event.key == 'Backspace') {
+      this.sendAction('backspace-press');
+    }
+    if (event.key == 'ArrowUp') {
+      event.preventDefault();
+    }
+  }
 });
