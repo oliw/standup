@@ -171,7 +171,6 @@ footer {
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .card-add {
@@ -194,6 +193,7 @@ footer {
     border: none;
     background-color: $grey;
     color: $dark-grey;
+    resize: none;
   }
   &__title:hover:not(:focus) {
     border-bottom: 1px dotted $dark-grey;

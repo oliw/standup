@@ -26,7 +26,7 @@
       <div class="card">
         <div class="card-header">
           <div class="card-header__left">
-            {{input type="text" class="card__title" placeholder="Topic, Theme or Person" value=topic.subject}}
+            {{ow-textarea class="card__title" placeholder="Topic, Theme or Person" value=topic.subject}}
           </div>
           <div class="card-header__right">
             {{fa-icon "remove" click=(action "deleteTopic" topic model)}}
@@ -79,7 +79,7 @@
     {{#if showQuestionOfTheDay}}
       <div class="card">
         <div class="card-header">
-          <h3>{{model.questionOfTheDay.question}}</h3>
+          {{ow-textarea class="card__title" value=model.questionOfTheDay.question}}
           <div>
             {{fa-icon "refresh" click=(action "refreshQuestionOfTheDay")}}
             {{fa-icon "remove" click=(action "deleteQuestionOfTheDay")}}
