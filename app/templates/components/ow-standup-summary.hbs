@@ -1,35 +1,37 @@
-<h1>Standup Notes for {{joda-format standup.date 'dddd, MMMM Do'}}</h1>
-{{#each standup.topics as |topic|}}
-  <h2>{{topic.subject}}</h2>
-  <h3>Yesterday</h3>
-  <ul>
-    {{#each topic.yesterdays as |entry|}}
-      <li>{{entry.body}}</li>
-    {{/each}}
-  </ul>
-  <h3>Today</h3>
-  <ul>
-    {{#each topic.todays as |entry|}}
-      <li>{{entry.body}}</li>
-    {{/each}}
-  </ul>
-  <h3>Blockers</h3>
-  {{#if hasBlockers}}
+<div class='summary'>
+  <h1>Standup Notes for {{joda-format standup.date 'dddd, MMMM Do'}}</h1>
+  {{#each standup.topics as |topic|}}
+    <h2>{{topic.subject}}</h2>
+    <h3>Yesterday</h3>
     <ul>
-      {{#each topic.blockers as |entry|}}
-        <li>🚨 {{entry.body}}</li>
+      {{#each topic.yesterdays as |entry|}}
+        <li>{{entry.body}}</li>
       {{/each}}
     </ul>
-  {{else}}
-    <p>None</p>
-  {{/if}}
-{{/each}}
-{{#if standup.questionOfTheDay}}
-  <h2>{{standup.questionOfTheDay.question}}</h2>
-  <ul>
-  {{#each standup.questionOfTheDay.answers as |answer|}}
-  <li>{{answer.value}}</li>
+    <h3>Today</h3>
+    <ul>
+      {{#each topic.todays as |entry|}}
+        <li>{{entry.body}}</li>
+      {{/each}}
+    </ul>
+    <h3>Blockers</h3>
+    {{#if hasBlockers}}
+      <ul>
+        {{#each topic.blockers as |entry|}}
+          <li>🚨 {{entry.body}}</li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <p>None</p>
+    {{/if}}
   {{/each}}
-  </ul>
-{{/if}}
-<p class="upsell">Made with <a href="https://epicstandups.com">epicstandups.com</a></p>
+  {{#if standup.questionOfTheDay}}
+    <h2>{{standup.questionOfTheDay.question}}</h2>
+    <ul>
+    {{#each standup.questionOfTheDay.answers as |answer|}}
+    <li>{{answer.value}}</li>
+    {{/each}}
+    </ul>
+  {{/if}}
+  <p class="upsell"><a href="https://epicstandups.com">epicstandups.com</a></p>
+</div>

@@ -87,7 +87,7 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: $space-medium;
+  padding: $space-large;
   border: 1px solid $dark-grey;
   border-radius: $rounding-large;
   &__content {
@@ -104,6 +104,10 @@ footer {
       font-size: 1em;
     }
   }
+}
+
+.summary {
+  padding-bottom: $space-medium;
 }
 
 .nav {

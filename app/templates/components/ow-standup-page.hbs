@@ -12,9 +12,9 @@
       </button>
     {{/if}}
     {{#if showQuestionOfTheDayButton}}
-      <button class='btn' {{action 'createQuestionOfTheDay'}}>Insert Question of the Day</button>
+    <button class='btn' {{action 'createQuestionOfTheDay'}}>{{fa-icon "plus-square"}} Insert Question of the Day</button>
     {{/if}}
-    <button class='btn' {{action 'toggleSummary'}}>Generate Summary</button>
+    <button class='btn' {{action 'toggleSummary'}}>{{fa-icon "share"}} Generate Summary</button>
   </div>
 </div>
 <div class='topics'>
@@ -107,8 +107,8 @@
     <div class="modal__content">
       {{ow-standup-summary id='js-standup-summary' standup=model}}
     </div>
-    <button {{action 'toggleSummary'}}>Back to form</button>
-    {{#copy-button clipboardTarget='#js-standup-summary' success=(action 'onCopy')}}Copy summary to clipboard{{/copy-button}}
+    <button class='btn' {{action 'toggleSummary'}}>{{fa-icon "arrow-left"}} Back to form</button>
+    {{#copy-button class='btn' clipboardTarget='#js-standup-summary' success=(action 'onCopy')}}{{fa-icon "clipboard"}} Copy to Clipboard{{/copy-button}}
     {{#if showCopyStatus}}
       <span>This summary has been copied to your clipboard!</span>
     {{/if}}
