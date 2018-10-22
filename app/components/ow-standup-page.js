@@ -55,6 +55,30 @@ export default Component.extend({
   showCopyStatus: false,
   showQuestionOfTheDayButton: none('model.questionOfTheDay.question'),
   showQuestionOfTheDay: notEmpty('model.questionOfTheDay.question'),
+  importTopicsTask: task(function * () {
+    let standup = this.get('model');
+    let date = standup.get('date');
+    let yesterday = date.minusDays(1);
+    let matches = yield this.store.query('standup', {
+      date: yesterday.toString()
+    });
+    if (matches.get('length') === 0) {
+      return;
+    }
+    let previousStandup = matches.get('firstObject');
+    let previousTopics = yield previousStandup.get('topics');
+
+    previousTopics.forEach((topic) => {
+      let newTopic = this.store.createRecord('topic', {
+        subject: topic.get('subject'),
+        owner: this.get('session.data.authenticated.uid')
+      });
+      standup.get('topics').addObject(newTopic);
+      newTopic.save().then(function() {
+        return standup.save();
+      });
+    });
+  }),
   actions: {
     save() {
       this.set('isEditing', false);
@@ -123,6 +147,9 @@ export default Component.extend({
     onCopy() {
       this.set('showCopyStatus', true);
     },
+    importTopics() {
+      this.get('importTopicsTask').perform();
+   },
     createTopic(standup) {
       let newTopic = this.store.createRecord('topic', {
         subject: '',

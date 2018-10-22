@@ -20,8 +20,17 @@ export default Route.extend({
     return weekday[d.getDay()];
   }).property(),
 
+  queryParams: {
+    date: {}
+  },
+
   async model(params) {
-    let date = LocalDate.now(ZoneId.SYSTEM);
+    let date = null;
+    if (params.date) {
+      date = LocalDate.parse(params.date);
+    } else {
+      date = LocalDate.now(ZoneId.SYSTEM);
+    }
     let dayOfWeek = this.get('dayOfWeek');
     let standup = null;
     if (this.get('session.data.authenticated.uid')) {

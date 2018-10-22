@@ -11,6 +11,9 @@
         {{/if}}
       </button>
     {{/if}}
+    {{#if model.hasNoTopics}}
+    <button class='btn' {{action 'importTopics'}}>{{fa-icon "cloud-download"}} Import Yesterday's topics</button>
+    {{/if}}
     {{#if showQuestionOfTheDayButton}}
     <button class='btn' {{action 'createQuestionOfTheDay'}}>{{fa-icon "plus-square"}} Insert Question of the Day</button>
     {{/if}}
