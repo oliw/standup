@@ -3,7 +3,7 @@ import { task, timeout } from 'ember-concurrency';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { not, filterBy, gt, none, notEmpty } from '@ember/object/computed';
+import { sort, not, filterBy, gt, none, notEmpty } from '@ember/object/computed';
 import { schedule } from '@ember/runloop';
 import { observer } from '@ember/object';
 import { on } from '@ember/object/evented';
@@ -55,6 +55,8 @@ export default Component.extend({
   showCopyStatus: false,
   showQuestionOfTheDayButton: none('model.questionOfTheDay.question'),
   showQuestionOfTheDay: notEmpty('model.questionOfTheDay.question'),
+  sortedTopicsOrdering: ['sortOrder'],
+  sortedTopics: sort('model.topics', 'sortedTopicsOrdering'),
   importTopicsTask: task(function * () {
     let standup = this.get('model');
     let date = standup.get('date');
@@ -150,10 +152,31 @@ export default Component.extend({
     importTopics() {
       this.get('importTopicsTask').perform();
    },
+    swapTopics(topicId, secondTopicId) {
+      if (topicId === secondTopicId) {
+        return;
+      }
+      let topics = this.get('model.topics');
+      let firstTopic = topics.findBy('id', topicId);
+      let secondTopic = topics.findBy('id', secondTopicId);
+      let originalFirstTopicOrder = firstTopic.get('sortOrder');
+      let originalSecondTopicOrder = secondTopic.get('sortOrder');
+      firstTopic.set('sortOrder', originalSecondTopicOrder);
+      secondTopic.set('sortOrder', originalFirstTopicOrder);
+      firstTopic.save();
+      secondTopic.save();
+    },
     createTopic(standup) {
+      let topics = this.get('model.topics');
+      let highestSortNumber = Math.max(...topics.mapBy('sortOrder'));
+      let sortNumber = highestSortNumber+1;
+      if (sortNumber <= 0) {
+        sortNumber = topics.get('length');
+      }
       let newTopic = this.store.createRecord('topic', {
         subject: '',
-        owner: this.get('session.data.authenticated.uid')
+        owner: this.get('session.data.authenticated.uid'),
+        sortOrder: sortNumber
       });
       standup.get('topics').addObject(newTopic);
       newTopic.save().then(function() {

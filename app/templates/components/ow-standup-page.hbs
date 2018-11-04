@@ -25,56 +25,60 @@
     <button class='topics__add btn btn--cta' {{action "createTopic" model}}>Add first topic</button>
   {{/if}}
   {{#if model.hasSomeTopics}}
-    {{#each model.topics as |topic|}}
-      <div class="card">
-        <div class="card-header">
-          <div class="card-header__left">
-            {{ow-textarea class="card__title" placeholder="Topic, Theme or Person" value=topic.subject}}
+    {{#each sortedTopics as |topic|}}
+      {{#ow-draggable-item content=topic.id}}
+        {{#ow-draggable-dropzone onDrop=(action 'swapTopics' topic.id)}}
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header__left">
+                {{ow-textarea class="card__title" placeholder="Topic, Theme or Person" value=topic.subject}}
+              </div>
+              <div class="card-header__right">
+                {{fa-icon "remove" click=(action "deleteTopic" topic model)}}
+              </div>
+            </div>
+            <h4 class="card__section">Yesterday</h4>
+            {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
+              {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
+                {{ow-entry class="topic__entry" value=item.body 
+                  selected=isSelected
+                  onEnter=(action "createEntry" topic topic.yesterdays item)
+                  onSelectRequest=selectItem
+                  onRemoveRequest=(action "deleteEntry" topic item)
+                  onChange=(action (mut item.body))
+                  editable=isEditing}}
+              {{/ow-list}}
+            {{/ow-editor}}
+            {{ow-entry-new onClick=(action "createEntry" topic topic.yesterdays null)}}
+            <h4 class="card__section">Today</h4>
+            {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
+              {{#ow-list items=topic.todays as |item isSelected selectItem|}}
+                {{ow-entry value=item.body 
+                  selected=isSelected
+                  onEnter=(action "createEntry" topic topic.todays item)
+                  onSelectRequest=selectItem 
+                  onRemoveRequest=(action "deleteEntry" topic item)
+                  onChange=(action (mut item.body))
+                  editable=isEditing}}
+              {{/ow-list}}
+            {{/ow-editor}}
+            {{ow-entry-new onClick=(action "createEntry" topic topic.todays null)}}
+            <h4 class="card__section">Blockers</h4>
+            {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
+              {{#ow-list items=topic.blockers as |item isSelected selectItem|}}
+                {{ow-entry value=item.body 
+                  selected=isSelected
+                  onEnter=(action "createEntry" topic topic.blockers item)
+                  onSelectRequest=selectItem 
+                  onRemoveRequest=(action "deleteEntry" topic item)
+                  onChange=(action (mut item.body))
+                  editable=isEditing}}
+              {{/ow-list}}
+            {{/ow-editor}}
+            {{ow-entry-new onClick=(action "createEntry" topic topic.blockers null)}}
           </div>
-          <div class="card-header__right">
-            {{fa-icon "remove" click=(action "deleteTopic" topic model)}}
-          </div>
-        </div>
-        <h4 class="card__section">Yesterday</h4>
-        {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
-          {{#ow-list items=topic.yesterdays as |item isSelected selectItem|}}
-            {{ow-entry class="topic__entry" value=item.body 
-              selected=isSelected
-              onEnter=(action "createEntry" topic topic.yesterdays item)
-              onSelectRequest=selectItem
-              onRemoveRequest=(action "deleteEntry" topic item)
-              onChange=(action (mut item.body))
-              editable=isEditing}}
-          {{/ow-list}}
-        {{/ow-editor}}
-        {{ow-entry-new onClick=(action "createEntry" topic topic.yesterdays null)}}
-        <h4 class="card__section">Today</h4>
-        {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
-          {{#ow-list items=topic.todays as |item isSelected selectItem|}}
-            {{ow-entry value=item.body 
-              selected=isSelected
-              onEnter=(action "createEntry" topic topic.todays item)
-              onSelectRequest=selectItem 
-              onRemoveRequest=(action "deleteEntry" topic item)
-              onChange=(action (mut item.body))
-              editable=isEditing}}
-          {{/ow-list}}
-        {{/ow-editor}}
-        {{ow-entry-new onClick=(action "createEntry" topic topic.todays null)}}
-        <h4 class="card__section">Blockers</h4>
-        {{#ow-editor onEnter=(action 'enableEditing') onExit=(action 'disableEditing')}}
-          {{#ow-list items=topic.blockers as |item isSelected selectItem|}}
-            {{ow-entry value=item.body 
-              selected=isSelected
-              onEnter=(action "createEntry" topic topic.blockers item)
-              onSelectRequest=selectItem 
-              onRemoveRequest=(action "deleteEntry" topic item)
-              onChange=(action (mut item.body))
-              editable=isEditing}}
-          {{/ow-list}}
-        {{/ow-editor}}
-        {{ow-entry-new onClick=(action "createEntry" topic topic.blockers null)}}
-      </div>
+        {{/ow-draggable-dropzone}}
+      {{/ow-draggable-item}}
     {{/each}}
     <button class='card-add btn' {{action "createTopic" model}}>
       Add another topic

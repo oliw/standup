@@ -7,6 +7,7 @@ export default DS.Model.extend({
   todays: DS.hasMany('entry', { async: true, inverse: null }),
   blockers: DS.hasMany('entry', { async: true, inverse: null }),
   owner: DS.attr('string'),
+  sortOrder: DS.attr('number'),
 
   hasSubject: notEmpty('subject'),
   allEntries: union('todays', 'yesterdays', 'blockers')
