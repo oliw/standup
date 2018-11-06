@@ -1,5 +1,5 @@
-import LSAdapter from 'ember-localstorage-adapter';
+import LSAdapter from "ember-localstorage-adapter";
 
 export default LSAdapter.extend({
-  namespace: 'standup'
+  namespace: "standup"
 });

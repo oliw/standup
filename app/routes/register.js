@@ -1,12 +1,10 @@
-import Route from '@ember/routing/route';
+import Route from "@ember/routing/route";
 
 export default Route.extend({
   email: "",
   password: "",
 
   actions: {
-    register: function() {
-
-    }
+    register: function() {}
   }
 });

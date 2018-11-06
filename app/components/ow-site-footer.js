@@ -1,5 +1,5 @@
-import Component from '@ember/component';
-import { inject as service } from '@ember/service';
+import Component from "@ember/component";
+import { inject as service } from "@ember/service";
 
 export default Component.extend({
   showFeedbackForm: false,
@@ -7,26 +7,26 @@ export default Component.extend({
   feedback: null,
   actions: {
     showFeedback() {
-      let existingFeedback = this.get('feedback');
+      let existingFeedback = this.get("feedback");
       if (existingFeedback !== null) {
         existingFeedback.rollbackAttributes();
       }
-      let newFeedback = this.get('store').createRecord('feedback');
-      this.set('feedback', newFeedback);
-      this.set('showFeedbackForm', true);
+      let newFeedback = this.get("store").createRecord("feedback");
+      this.set("feedback", newFeedback);
+      this.set("showFeedbackForm", true);
     },
     submitFeedback() {
-      let feedback = this.get('feedback');
+      let feedback = this.get("feedback");
       feedback.save().then(() => {
-        this.set('showFeedbackForm', false);
+        this.set("showFeedbackForm", false);
       });
     },
     dismissFeedback() {
-      let existingFeedback = this.get('feedback');
+      let existingFeedback = this.get("feedback");
       if (existingFeedback !== null) {
         existingFeedback.rollbackAttributes();
       }
-      this.set('showFeedbackForm', false);
+      this.set("showFeedbackForm", false);
     }
   }
 });

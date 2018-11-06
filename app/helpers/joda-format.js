@@ -1,5 +1,5 @@
-import MomentFormat from 'ember-moment/helpers/moment-format';
-import { LocalDate } from 'js-joda';
+import MomentFormat from "ember-moment/helpers/moment-format";
+import { LocalDate } from "js-joda";
 
 export default MomentFormat.extend({
   compute: function([datetime, ...rest], hash) {
@@ -10,4 +10,3 @@ export default MomentFormat.extend({
     return this._super([momentCompatibleDateTime].concat(rest), hash);
   }
 });
-

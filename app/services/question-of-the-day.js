@@ -1,4 +1,4 @@
-import Service from '@ember/service';
+import Service from "@ember/service";
 
 const QUESTIONS = [
   "Among all your many work skills, which one are you really, really extra proud of having acquired?",
@@ -14,7 +14,7 @@ const QUESTIONS = [
   "Do you subscribe to any print magazines? Which one(s), and what makes them great?",
   "Do you talk about work with friends and family? If so, do they have any idea what you're talking about?",
   "Do you think that Moore's Law will continue predicting exponential technological innovation?",
-  "Do you use the \"fave\" feature in CivicActions :slack: channels?  If so, how?",
+  'Do you use the "fave" feature in CivicActions :slack: channels?  If so, how?',
   "Do you work while listening to music? What's best for helping you concentrate? What's most distracting?",
   "Does 'strike while the iron is hot' really apply?",
   "Farfalle, capellini, cavatappi, fusilli, penne... everyone has a favorite pasta. What is your favorite and why?",
@@ -34,7 +34,7 @@ const QUESTIONS = [
   "How many tabs do you have open on your browser right now?",
   "How many tattoos do you have and what's your favorite one? Why?",
   "How many times have you thought about the food you’re going to eat when for dinner since the day started?",
-  "How would you draw a \"Fen\" diagram?",
+  'How would you draw a "Fen" diagram?',
   "I'm looking for a good read. Have you read anything good lately?",
   "If all our needs were met and no one needed to earn a living, how would you spend your time and what would you pursue?",
   "If all the computers, electronic gadgets and software on earth disappeared tomorrow, what would you do with your time?",
@@ -70,7 +70,7 @@ const QUESTIONS = [
   "Small talk can be tough. What's your favorite technique for making conversation? What's your favorite technique for ending a conversation?",
   "So… what are your thoughts… on sports?",
   "States/provinces with the most (per capita) Darwin Award contestants: Florida, Texas, California, New Jersey, Alberta, Ontario, British Columbia, (fill in here)?",
-  "Take a moment and picture a \"state of Happiness\" in your mind. What do you envision? Is this Happiness in your mind's eye like a mini movie or a static image or a something more abstract?",
+  'Take a moment and picture a "state of Happiness" in your mind. What do you envision? Is this Happiness in your mind\'s eye like a mini movie or a static image or a something more abstract?',
   "Tell us about your chair. Is it great? How does your back like it?",
   "The earth is doomed to destruction by a big-ass meteor, scheduled to arrive tomorrow. What do you do with today?",
   "There is a lot of great seafood, doubtlessly. Providing you do not have an allergy and can discuss it, hands down what is your favorite seafood, why, and how do you quite specifically like it prepared?",
@@ -124,7 +124,7 @@ const QUESTIONS = [
   "What has been your most intense experience to date?",
   "What imaginary time-saving appliance do you wish someone would invent so that you could use it all the time?",
   "What is a good book you would recommend? @channel",
-  "What is a great \"throwback\" photo of yourself? (And feel free to share a few words about it!)",
+  'What is a great "throwback" photo of yourself? (And feel free to share a few words about it!)',
   "What is in our food? Hard to know... but when you are grocery shopping do you read the Nutrition Facts and ingredients on the label? And why or why not?",
   "What is one change, large or small that you think could improve the world socially?",
   "What is one thing you hope people will say about you after you are dead?",
@@ -242,7 +242,7 @@ const QUESTIONS = [
   "When does creativity strike you?",
   "When family discourse arises in your 'workplace', how do you maintain productivity?",
   "When the UFO lands, are you more excited or frightened? Why?",
-  "When was the last time you felt really productive and \"in the zone\"?",
+  'When was the last time you felt really productive and "in the zone"?',
   "When was the last time you felt totally scared and out of your depth, and then overcame that feeling?",
   "When was the last time you soberly had Taco Bell, and why?",
   "When was your last / when is your next dentist appointment?",

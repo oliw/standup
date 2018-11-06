@@ -1,19 +1,18 @@
-import Ember from 'ember';
-import FreestyleController from 'ember-freestyle/controllers/freestyle';
-import EmberObject from '@ember/object';
+import Ember from "ember";
+import FreestyleController from "ember-freestyle/controllers/freestyle";
+import EmberObject from "@ember/object";
 
 const { inject } = Ember;
 
-const Item = EmberObject.extend({
-});
+const Item = EmberObject.extend({});
 
 export default FreestyleController.extend({
   emberFreestyle: inject.service(),
 
   owListItems: [
-    Item.create({name: 'A'}),
-    Item.create({name: 'B'}),
-    Item.create({name: 'C'})
+    Item.create({ name: "A" }),
+    Item.create({ name: "B" }),
+    Item.create({ name: "C" })
   ],
 
   /* BEGIN-FREESTYLE-USAGE fp--notes
@@ -47,25 +46,25 @@ export default Ember.Component.extend({
   END-FREESTYLE-USAGE */
 
   colorPalette: {
-    'primary': {
-      'name': 'cyan',
-      'base': '#00bcd4'
+    primary: {
+      name: "cyan",
+      base: "#00bcd4"
     },
-    'accent': {
-      'name': 'amber',
-      'base': '#ffc107'
+    accent: {
+      name: "amber",
+      base: "#ffc107"
     },
-    'secondary': {
-      'name': 'greyish',
-      'base': '#b6b6b6'
+    secondary: {
+      name: "greyish",
+      base: "#b6b6b6"
     },
-    'foreground': {
-      'name': 'blackish',
-      'base': '#212121'
+    foreground: {
+      name: "blackish",
+      base: "#212121"
     },
-    'background': {
-      'name': 'white',
-      'base': '#ffffff'
+    background: {
+      name: "white",
+      base: "#ffffff"
     }
   },
 
@@ -74,14 +73,20 @@ export default Ember.Component.extend({
       alert(`This new value is ${newValue}`);
     },
     insertItem(index) {
-      this.get('owListItems').insertAt(index, Item.create({name: 'New Object'}));
+      this.get("owListItems").insertAt(
+        index,
+        Item.create({ name: "New Object" })
+      );
     },
     removeItem(item) {
-      this.get('owListItems').removeObject(item);
+      this.get("owListItems").removeObject(item);
     },
     insertAfter(item) {
-      let index = this.get('owListItems').indexOf(item) + 1;
-      this.get('owListItems').insertAt(index, Item.create({name: 'New Object'}));
-    },
+      let index = this.get("owListItems").indexOf(item) + 1;
+      this.get("owListItems").insertAt(
+        index,
+        Item.create({ name: "New Object" })
+      );
+    }
   }
 });
