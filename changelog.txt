@@ -1,0 +1,3 @@
+2018-12-17 Feature - You will now be informed by the menu bar if there have been new
+improvements made to epicstandups.com since your last visit
+2018-12-17 Bugfix - You can now view Blockers in the summary

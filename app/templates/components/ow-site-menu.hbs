@@ -10,6 +10,11 @@
         {{#link-to 'authenticated.dashboard' class='nav__link'}}Dashboard{{/link-to}}
       </li>
     {{/if}}
+    {{#if showWhatsNew}}
+      <li class="nav__item">
+        {{#link-to 'about' class='nav__link'}}Whats New!{{/link-to}}
+      </li>
+    {{/if}}
     <li class="nav__item">
       {{#link-to 'about' class='nav__link'}}About{{/link-to}}
     </li>
