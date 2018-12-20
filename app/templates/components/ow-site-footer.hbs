@@ -1,8 +1,18 @@
-<button class="btn" {{action 'showFeedback'}}>{{fa-icon "comment"}} Leave Me Feedback</button>
-{{#if showFeedbackForm}}
-  <div class="modal">
-    {{textarea class="feedback__input" value=feedback.body placeholder="Send me your improvement suggestions or info about any bugs you've noticed"}}
-    <button class="btn" {{action 'dismissFeedback'}}>Cancel</button>
-    <button class="btn" {{action 'submitFeedback'}}>Submit Feedback</button>
+<div class="footer">
+  <div></div>
+  <div class="footer__center">
+    <a href="https://twitter.com/epicstandups">
+      {{fa-icon "twitter" class='twitter'}}
+    </a>
   </div>
-{{/if}}
+  <div class="footer__right">
+    <button class="btn" {{action 'showFeedback'}}>{{fa-icon "comment"}} Leave Me Feedback</button>
+    {{#if showFeedbackForm}}
+      <div class="modal">
+        {{textarea class="feedback__input" value=feedback.body placeholder="Send me your improvement suggestions or info about any bugs you've noticed"}}
+        <button class="btn" {{action 'dismissFeedback'}}>Cancel</button>
+        <button class="btn" {{action 'submitFeedback'}}>Submit Feedback</button>
+      </div>
+    {{/if}}
+  </div>
+</div>
