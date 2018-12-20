@@ -3,7 +3,7 @@ import { getOwner } from "@ember/application";
 import { inject as service } from "@ember/service";
 import { alias } from "@ember/object/computed";
 
-const ALWAYS_FIREBASE = ["feedback"];
+const ALWAYS_FIREBASE = ["feedback", "stats"];
 
 export default DS.Store.extend({
   session: service(),

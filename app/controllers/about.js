@@ -1,6 +1,7 @@
 import Controller from "@ember/controller";
 import EmberObject from "@ember/object";
 import { computed } from "@ember/object";
+import { alias } from "@ember/object/computed";
 
 let ChangeLogEntry = EmberObject.extend({
   date: null,
@@ -8,8 +9,9 @@ let ChangeLogEntry = EmberObject.extend({
 });
 
 export default Controller.extend({
-  changeLogEntries: computed("model", function() {
-    let model = this.get("model");
+  standupCount: alias("model.stats.standupCount"),
+  changeLogEntries: computed("model.changelog", function() {
+    let model = this.get("model.changelog");
     let entries = [];
     model.forEach(rawEntry => {
       entries.push(

@@ -98,6 +98,14 @@ export default Component.extend({
       });
     });
   }),
+  logNewStandup() {
+    this.get("store")
+      .findRecord("stats", 1)
+      .then(stats => {
+        stats.incrementProperty("standupCount");
+        stats.save();
+      });
+  },
   actions: {
     save() {
       this.set("isEditing", false);
@@ -207,6 +215,7 @@ export default Component.extend({
       newTopic.save().then(function() {
         return standup.save();
       });
+      this.logNewStandup();
     },
     deleteTopic(topic, standup) {
       topic.destroyRecord().then(function() {

@@ -1,10 +1,12 @@
 <h1>About Epic Standups</h1>
-<p>EpicStandups is a tool for running lean, mean standups. It is built from best practices I've learned over my career as a software engineer.</p>
+<p>EpicStandups is a tool for running lean, mean standups. It is built from best practices I've learned over my career as a software engineer. Roughly {{standupCount}} standups have been made so far.</p>
 <p>Its currently under active development</p>
 <p><a href="https://twitter.com/epicstandups">Follow EpicStandups on Twitter for news and updates</a></p>
 {{#link-to 'login'}}Try it free{{/link-to}}
 <h2>Whats New</h2>
 {{#each changeLogEntries as |entry|}}
-  {{entry.date}}
-  {{entry.description}}
+  <p>
+    {{entry.date}}
+    {{entry.description}}
+  </p>
 {{/each}}

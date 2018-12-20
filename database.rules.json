@@ -6,6 +6,10 @@
       ".read": "true",
       ".write": "true"
     },
+    "stats": {
+      ".read": "true",
+      ".write": "true"
+    },
     "standups": {
       ".indexOn": "owner",
       ".read": "auth.uid != null && query.orderByChild == 'owner' && query.equalTo == auth.uid",
